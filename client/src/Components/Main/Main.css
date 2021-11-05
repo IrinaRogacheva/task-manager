@@ -1,0 +1,42 @@
+.main
+{
+    background-color: #f8f9ff;
+    width: 50%;
+    padding: 30px 30px 24px 40px;
+}
+
+.main_input-wraper
+{
+    position: relative;
+}
+
+.main_placeholder-wraper
+{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 14px;
+    left: 19px;
+}
+
+.main__placeholder
+{
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    color: #8c8c8c;
+    margin-left: 6px;
+}
+
+.main__input
+{
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    border: 1px solid #dfdae3;
+    outline: none;
+    background: #dfdae3;
+    color: #444;
+    width: 100%;
+    border-radius: 4px;
+    padding: 13px 18px;
+    box-sizing: border-box;
+}

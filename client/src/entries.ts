@@ -12,4 +12,4 @@ type Task = {
     id_parent_task: number,
     id_project: number,
     id_author: number,
-  }
+}

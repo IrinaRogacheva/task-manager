@@ -1,0 +1,163 @@
+.sidebar
+{
+    height: 100%;
+    width: 227px;
+    background-color: #f1f3fb;
+    padding: 30px 30px 24px 45px;
+    overflow: scroll;
+    border-right: 1px solid #e7e9f1;
+}
+
+.sidebar::-webkit-scrollbar 
+{
+    background-color: #f1f3fb;
+    width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb 
+{
+    height: 100px;
+  background-color: #dfdae3;
+  border-radius: 9em;
+}
+  
+.sidebar::-webkit-scrollbar-thumb:hover 
+{
+  background-color: #d2cbd6;
+}
+
+.sidebar__button
+{
+    display: flex;
+    border: none;
+    align-items: center;
+    background-color: #dfdae3;
+    padding: 6px 12px;
+    border-radius: 5px;
+    width: inherit;
+    margin-bottom: 10px;
+}
+
+.sidebar__button:hover
+{
+    cursor: pointer;
+}
+
+.sidebar__text
+{
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    color: #444;
+    margin: 0;
+    padding-left: 10px;
+}
+
+.sidebar__number-of-tasks
+{
+    margin-left: auto;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    color: #8c8c8c;
+}
+
+.dropdown-lists
+{
+    padding: 12px 0px 5px;
+    border-bottom: 1px solid #dfdae3;
+    border-top: 1px solid #dfdae3;
+    margin: 20px 0px;
+}
+
+.dropdown_list
+{
+    margin-bottom: 10px;
+    user-select: none;
+}
+
+.dropdown_list__header
+{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 2px 5px 10px;
+    border-radius: 5px;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #8c8c8c;
+}
+
+.dropdown_list__arrow-wrapper
+{
+    transition: transform .15s cubic-bezier(.4,0,.2,1) 0ms;
+}
+
+.rotate 
+{
+    transform: rotate(90deg);
+}
+
+.dropdown_list__header-text
+{
+    margin-left: 10px;
+}
+
+.dropdown_list__plus-wrapper
+{
+    margin-left: auto;
+    border-radius: 4px;
+    padding: 6px 7px;
+}
+
+.dropdown_list__plus-wrapper:hover
+{
+    background-color: #dfdae3;
+}
+
+p
+{
+    margin: 0;
+}
+
+.dropdown_list__body
+{
+    transition: all .3s cubic-bezier(.4,0,.2,1) 0ms;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown_list__item-wrapper
+{
+    cursor: pointer;
+    padding: 8px 13px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown_list__item-wrapper:hover
+{
+    background-color: #dfdae3;
+}
+
+.dropdown_list__item
+{
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    color: #444;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 158px;
+    display: inline-block;
+}
+
+.dropdown_list__marker
+{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 11px;
+}
