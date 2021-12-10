@@ -34,8 +34,8 @@ export function Sidebar(props: SidebarProps) {
                 <p className="sidebar__number-of-tasks">{props.numberOfUpcoming}</p>
             </button>
             <div className="dropdown-lists">
-                <DropdownList {...{items: props.projectsNames, dropdownListName: 'Проекты', numberOfTasksInItem: props.numberOfTasksInProject, colorsOfItems: props.colorsOfProjects}}/>
-                <DropdownList {...{items: props.tagsNames, dropdownListName: 'Теги', numberOfTasksInItem: props.numberOfTasksInTag, colorsOfItems: props.colorsOfTags}}/>
+                <DropdownList isChangingModeOn={true} {...{ items: props.projectsNames, dropdownListName: 'Проекты', numberOfTasksInItem: props.numberOfTasksInProject, colorsOfItems: props.colorsOfProjects }}/>
+                <DropdownList isChangingModeOn={true} {...{ items: props.tagsNames, dropdownListName: 'Теги', numberOfTasksInItem: props.numberOfTasksInTag, colorsOfItems: props.colorsOfTags }}/>
             </div>
             <button className="sidebar__button">
                 <Tick/>

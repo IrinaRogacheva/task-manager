@@ -5,6 +5,7 @@ import { Task } from './entries';
 import {Header} from './Components/Header/Header'
 import { Sidebar } from './Components/Sidebar/Sidebar';
 import { Main } from './Components/Main/Main';
+import { BrowserRouter as Router } from 'react-router-dom';
  
 function App() {
   const [taskName, setTaskName] = useState('')
@@ -34,13 +35,15 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Header />
-      <div style={{display: 'flex', height: 'calc(100% - 49px)'}}>
-        <Sidebar {...sidebarProps} />
-        <Main/>
-      </div>
-    </div>
+      <Router>
+        <div className="App">
+          <Header />
+          <div style={{display: 'flex', height: 'calc(100% - 49px)'}}>
+            <Sidebar {...sidebarProps} />
+            <Main/>
+          </div>
+        </div>
+      </Router>
   );
 }
 

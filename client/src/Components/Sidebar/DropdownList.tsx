@@ -6,7 +6,8 @@ export interface DropdownListProps {
     items: Array<string>,
     dropdownListName: string,
     numberOfTasksInItem: {[key: string]: number},
-    colorsOfItems: {[key: string]: string}
+    colorsOfItems: {[key: string]: string},
+    isChangingModeOn: boolean|undefined
 }
 
 export function DropdownList(props: DropdownListProps) {
@@ -24,21 +25,25 @@ export function DropdownList(props: DropdownListProps) {
         <div className='dropdown_list'>
             <div className='dropdown_list__header' onClick={toggleList}>
                 <div className={"dropdown_list__arrow-wrapper " + rotateClass}>
-                    <Arrow/>
+                    <Arrow {...{fill: "#8c8c8c", width: "13px", height: "13px"}}/>
                 </div>
                 <p className='dropdown_list__header-text'>{props.dropdownListName}</p>
-                <div className='dropdown_list__plus-wrapper'>
-                    <Plus {...{fill: "#8c8c8c", width: "15px", height: "15px"}}/>
-                </div>
+                {props.isChangingModeOn &&
+                    <div className='dropdown_list__plus-wrapper'>
+                        <Plus {...{fill: "#8c8c8c", width: "15px", height: "15px"}}/>
+                    </div>
+                }
             </div>
             <ul style={{display: display}} className='dropdown_list__body'>
                 {props.items.map((item)=>{
-                    return <div className='dropdown_list__item-wrapper'>
+                    return <div key={props.items.indexOf(item)} className='dropdown_list__item-wrapper'>
                         <span className='dropdown_list__marker' style={{backgroundColor: props.colorsOfItems[item]}}></span>
                         <li className='dropdown_list__item'>
                             {item}
                         </li>
-                        <div className="sidebar__number-of-tasks">{props.numberOfTasksInItem[item]}</div>
+                        {props.isChangingModeOn &&
+                            <div className="sidebar__number-of-tasks">{props.numberOfTasksInItem[item]}</div>
+                        }
                     </div> 
                 })}
             </ul>

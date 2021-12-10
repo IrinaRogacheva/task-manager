@@ -16,17 +16,19 @@ const db = mysql.createPool({
 })
 
 app.get('/api/get_tasks', (req, res) => {
-    const selectTasks = "SELECT * FROM `task`"
+    const selectTasks = "SELECT * FROM `task` ORDER BY `id_task` DESC"
     db.query(selectTasks,(err, result) => {
         res.send(result)
     })
 })
 
 app.post('/api/add_task', (req, res) => {
-    const taskName = req.body.taskName
+    const taskName = req.body.name
+    const priority = req.body.priority
+    const idAuthor = req.body.id_author
 
-    const insertTask = "INSERT INTO `task` (`name`, `id_author`) VALUES (?, 1)"
-    db.query(insertTask, [taskName],(err, result) => {
+    const insertTask = "INSERT INTO `task` (`name`, `priority`, `id_author`) VALUES (?, ?, ?)"
+    db.query(insertTask, [taskName, priority, idAuthor],(err, result) => {
         console.log(result)
     })
 })
