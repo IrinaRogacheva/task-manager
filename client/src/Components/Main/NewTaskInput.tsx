@@ -2,7 +2,7 @@ import React, { useRef, useState, FocusEvent, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { setPriority, setTaskName } from '../../Actions/new-task';
 import { addTask } from '../../Actions/tasks';
-import { selectNewTask } from '../../store';
+import { RootState } from '../../store';
 import { AddDate, Arrow, Plus } from '../Icons';
 import { Calendar } from './Calendar';
 import './Main.css'
@@ -61,19 +61,26 @@ export default function NewTaskInput(props: any) {
 
   
   const dispatch = useDispatch()
-  const newTask = useSelector(selectNewTask)
+  const newTask = useSelector(((state: RootState) => state.newTask))
   
   const submitReview = () => {
     if (inputRef.current)
     {
-      console.log('inputRef.current.value: '+ inputRef.current.value)
       dispatch(setTaskName(inputRef.current.value))
-      console.log('newTask.name: '+newTask.name)
-      dispatch(addTask(newTask))
-      dispatch(setPriority(0))
-      inputRef.current.value = ""
     }
   }
+
+  useEffect(() => {
+    if (newTask.name.length > 0)
+    {
+      dispatch(addTask(newTask))
+      dispatch(setPriority(0))
+      if (inputRef.current)
+      {
+        inputRef.current.value = ""
+      }
+    }
+  }, [newTask.name]);
 
   return (
     <div>
@@ -82,7 +89,7 @@ export default function NewTaskInput(props: any) {
           {plus}
           <div className='main__placeholder'>Добавить задачу</div>
         </div>
-        <input ref={inputRef} onKeyDown={(e)=>{if (e.key === 'Enter') {submitReview()}}} className='main__input' name='task' autoComplete="off" type='text' onFocus={()=>{setIsPlaceholderVisible(true);setIsAddingTaskModeOn(true)}} onBlur={(e)=>{checkIsAddingTaskModeOn(e as FocusEvent); checkIsPlaceholderVisible((e as FocusEvent))}}/>
+        <input ref={inputRef} onKeyDown={(e)=>{if (e.key === 'Enter') {submitReview()}}} className='main__input' autoComplete="off" type='text' onFocus={()=>{setIsPlaceholderVisible(true);setIsAddingTaskModeOn(true)}} onBlur={(e)=>{checkIsAddingTaskModeOn(e as FocusEvent); checkIsPlaceholderVisible((e as FocusEvent))}}/>
         <div className='main_input-condiments' style={{display: (isAddingTaskModeOn?'flex':'none')}}>
           <div ref={calendarButtonRef} tabIndex={0} onClick={()=>{setIsCalendarVisible(!isCalendarVisible);setIsCondimentsVisible(true)}} className='input-icon main__input-icon_right-border'>
             <AddDate/>

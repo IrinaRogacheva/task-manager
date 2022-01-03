@@ -31,8 +31,4 @@ export const store = createStore(
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
-export const selectState = (state: RootState) => state;
-export const selectTasks = (state: RootState) => state.tasks;
-export const selectNewTask = (state: RootState) => state.newTask;
-
 export default store;
