@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 import { CalendarIcon, DayOfCalendarIcon, DrawerIcon, Tick, TrashCan } from '../Icons';
 import { DropdownList } from './DropdownList';
 import './Sidebar.css'
@@ -16,8 +18,10 @@ interface SidebarProps {
 }
 
 export function Sidebar(props: SidebarProps) {
+    const view = useSelector(((state: RootState) => state.view))
+
     return (
-        <div className="sidebar">
+        <div className="sidebar" style={{display: (view.sidebarVisibility ? 'block':'none')}}>
             <button className="sidebar__button">
                 <DrawerIcon/>
                 <p className="sidebar__text">Входящие</p>

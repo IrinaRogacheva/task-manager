@@ -9,7 +9,6 @@ export const setPriority = (priority: number) => (dispatch: AppDispatch) => {
 };
 
 export const setTaskName = (name: string) => (dispatch: AppDispatch) => {
-    console.log('name in setTaskName action: ' + name)
     dispatch({
         type: SET_TASK_NAME,
         payload: name,

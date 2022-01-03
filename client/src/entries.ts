@@ -1,4 +1,4 @@
-export type { Task, App }
+export type { Task, View, App }
 
 type Task = {
     id_task: number|null,
@@ -12,8 +12,12 @@ type Task = {
     id_author: number,
 }
 
+type View = {
+    sidebarVisibility: boolean
+}
+
 type App = {
     newTask: Task,
     tasks: Array<Task>,
-    
+    view: View
 }
