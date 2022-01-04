@@ -2,12 +2,40 @@
 {
     background-color: #f8f9ff;
     width: 50%;
-    padding: 30px;
+    padding: 20px 30px;
+}
+
+.main__title
+{
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #444;
+    padding: 12px 0;
+}
+
+.main_title_wrapper
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.clear-trash-icon
+{
+    border: none;
+    background: url(./../../Icons/broom.png) no-repeat;
+    background-size: 90%;
+    width: 30px;
+    height: 27px;
+    cursor: pointer;
 }
 
 .main_input-wraper
 {
     position: relative;
+    margin-bottom: 15px;
+    margin-top: 8px;
 }
 
 .main_input-wraper:hover .main__placeholder
@@ -20,7 +48,7 @@
     display: flex;
     align-items: center;
     position: absolute;
-    padding: 12px 19px;
+    padding: 12px 15px;
     cursor: text;
 }
 
@@ -156,7 +184,7 @@
 
 .main_tasks-list
 {
-    margin: 20px 0;
+    margin: 0;
     list-style-type: none;
     padding: 0;
     overflow-y: scroll;
@@ -175,10 +203,25 @@
 {
     width: 13px;
     height: 13px;
-    border: 1px solid #f58c74;
+    border: 1px solid #a3a3a3;
     cursor: pointer;
     position: absolute;
     left: 15px;
+}
+
+.main_task-checkbox_p1
+{
+    border: 1px solid #e03131;
+}
+
+.main_task-checkbox_p2
+{
+    border: 1px solid #ffb000;
+}
+
+.main_task-checkbox_p3
+{
+    border: 1px solid #4772fa;
 }
 
 .main_task-checkbox:hover
@@ -227,7 +270,61 @@
 
 .task-context-menu
 {
-    width: 260px;
+    width: 210px;
     height: 300px;   
-    top: 30px;
+    top: 0;
+    right: 20px;
+}
+
+.task-context-menu__button
+{
+    cursor: pointer;
+    display: flex;
+    border: none;
+    align-items: center;
+    padding: 10px 12px;
+    width: inherit;
+    background-color: transparent;
+}
+
+.task-context-menu__button:hover
+{
+    background-color: #efefef;
+}
+
+.task-context-menu__text
+{
+    font-size: 13px;
+}
+
+.message_about_done_task
+{
+    background: #2A2D33;
+    border-radius: 3px;
+    padding: 10px 13px 10px 5px;
+    bottom: 15px;
+    align-items: center;
+}
+
+.cancel_button
+{
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    color: #f58c74;
+    font-weight: 600;
+    margin-left: 20px;
+    margin-right: 5px;
+}
+
+.message_text
+{
+    color: #fff;
+}
+
+.exit_icon
+{
+    cursor: pointer;
+    padding: 0px 3px;
+    border-radius: 2px;
 }

@@ -1,9 +1,9 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { SET_PRIORITY, SET_TASK_NAME } from "../Actions/types";
+import { SET_PRIORITY, SET_TASK_DATE, SET_TASK_NAME } from "../Actions/types";
 import { Task } from '../entries';
   
 const initialState: Task = {
-    id_task: null,
+    id_task: 0,
     name: "",
     description: null,
     date: null,
@@ -22,8 +22,11 @@ const initialState: Task = {
         return {...task, priority: payload};
 
       case SET_TASK_NAME:
-        console.log('in SET_TASK_NAME reducer: ' + payload)
         return {...task, name: payload};
+
+      case SET_TASK_DATE:
+        console.log('in SET_TASK_DATE reducer: ' + payload)
+        return {...task, date: payload};
 
       default:
         return task;

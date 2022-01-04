@@ -13,11 +13,16 @@
     display: flex;
     border: none;
     align-items: center;
-    background-color: #dfdae3;
     padding: 6px 12px;
     border-radius: 5px;
     width: inherit;
     margin-bottom: 10px;
+    background-color: transparent;
+}
+
+.sidebar__button_current
+{
+    background-color: #dfdae3;
 }
 
 .sidebar__button:hover

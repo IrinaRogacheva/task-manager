@@ -1,6 +1,7 @@
+import moment from 'moment';
 import React, { useRef, useState, FocusEvent, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { setPriority, setTaskName } from '../../Actions/new-task';
+import { setPriority, setTaskDate, setTaskName } from '../../Actions/new-task';
 import { addTask } from '../../Actions/tasks';
 import { RootState } from '../../store';
 import { AddDate, Arrow, Plus } from '../Icons';
@@ -48,7 +49,7 @@ export default function NewTaskInput(props: any) {
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
-      if(!(calendarRef.current as HTMLDivElement).contains(e.target as Node) && !(condimentsRef.current as HTMLDivElement).contains(e.target as Node)  && !(condimentsButtonRef.current as HTMLDivElement).contains(e.target as Node) && !(calendarButtonRef.current as HTMLDivElement).contains(e.target as Node))
+      if(calendarRef.current && !calendarRef.current.contains(e.target as Node) && condimentsRef.current && !condimentsRef.current.contains(e.target as Node) && condimentsButtonRef.current && !condimentsButtonRef.current.contains(e.target as Node) && calendarButtonRef.current && !calendarButtonRef.current.contains(e.target as Node))
       {
         setIsCondimentsVisible(true)
         setIsCalendarVisible(true)
@@ -59,7 +60,6 @@ export default function NewTaskInput(props: any) {
     return () => document.removeEventListener('click', onClick)
   }, [isCalendarVisible, isCondimentsVisible])
 
-  
   const dispatch = useDispatch()
   const newTask = useSelector(((state: RootState) => state.newTask))
   
@@ -69,6 +69,13 @@ export default function NewTaskInput(props: any) {
       dispatch(setTaskName(inputRef.current.value))
     }
   }
+
+  const view = useSelector(((state: RootState) => state.view))
+  useEffect(() => {
+    if (view.currentTab === "today" || view.currentTab === "next_week") {
+      dispatch(setTaskDate(moment().format('YYYY-MM-DD')))
+    }
+  }, [dispatch, view.currentTab]);
 
   useEffect(() => {
     if (newTask.name.length > 0)
