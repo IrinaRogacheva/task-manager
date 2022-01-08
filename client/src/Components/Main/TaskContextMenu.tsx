@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { updateTask } from '../../Actions/tasks';
+import { updateTaskStatus } from '../../Actions/tasks';
 import { setDeletedIdTask, setDeletedMesageVisibility } from '../../Actions/view';
 import { TrashCan } from '../Icons';
 import './Main.css'
@@ -9,7 +9,7 @@ export function TaskContextMenu(props: any) {
   const dispatch = useDispatch()
 
   const setTaskDeleted = () => {
-    dispatch(updateTask(props.id_task, {status: 2}))
+    dispatch(updateTaskStatus(props.id_task, {status: 2}))
     dispatch(setDeletedIdTask(props.id_task))
     dispatch(setDeletedMesageVisibility(true))
     setTimeout(()=>dispatch(setDeletedMesageVisibility(false)), 4000)

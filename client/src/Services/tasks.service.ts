@@ -24,22 +24,33 @@ class TasksDataService {
     return http.get('/get_deleted_tasks');
   }
 
+  getTasksOfProject(projectId: number) {
+    return http.get(`/get_tasks_of_project/${projectId}`);
+  }
+
+  getTasksOfTag(tagId: number) {
+    return http.get(`/get_tasks_of_tag/${tagId}`);
+  }
+
   getTodayTasks() {
     const date = moment().format('YYYY-MM-DD')
     return http.get(`/get_today_tasks/${date}`);
   }
 
-/*
-  get(id) {
-    return http.get(`/tutorials/${id}`);
+  getById(id:number) {
+    return http.get(`/get_task_by_id/${id}`);
   }
-*/
+
   addTask(task: Task) {
     return http.post("/add_task", task);
   }
 
-  update(id: number, data: any) {
-    return http.put(`/update_task/${id}`, data);
+  updateStatus(id: number, data: any) {
+    return http.put(`/update_task_status/${id}`, data);
+  }
+
+  updateName(id: number, data: any) {
+    return http.put(`/update_task_name/${id}`, data);
   }
 /*
   delete(id) {

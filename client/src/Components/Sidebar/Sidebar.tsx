@@ -1,31 +1,31 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getCountOfIncoming, getCountOfToday, setCurrentTab } from '../../Actions/view';
+import TasksDataService from "../../Services/tasks.service";
+import { setCurrentTab } from '../../Actions/view';
 import { RootState } from '../../store';
 import { CalendarIcon, DayOfCalendarIcon, DrawerIcon, Tick, TrashCan } from '../Icons';
-import { DropdownList } from './DropdownList';
+import { ProjectsList } from './ProjectsList';
 import './Sidebar.css'
+import { TagsList } from './TagsList';
 
-interface SidebarProps {
-    numberOfIncoming: number,
-    numberOfTodayTasks: number,
-    numberOfUpcoming: number,
-    projectsNames: Array<string>,
-    numberOfTasksInProject: {[key: string]: number},
-    colorsOfProjects: {[key: string]: string},
-    tagsNames: Array<string>,
-    numberOfTasksInTag: {[key: string]: number},
-    colorsOfTags: {[key: string]: string},
-}
-
-export function Sidebar(props: SidebarProps) {
+export function Sidebar(props: any) {
+    const [countOfIncoming, setCountOfIncoming] = useState(0)
+    const [countOfToday, setCountOfToday] = useState(0)
     const view = useSelector(((state: RootState) => state.view))
     const tasks = useSelector(((state: RootState) => state.tasks))
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getCountOfIncoming())
-        dispatch(getCountOfToday())
+        async function getCountOfIncoming() {
+            const res = await TasksDataService.getCountOfIncoming()
+            setCountOfIncoming(res.data[0].countOfIncoming)
+        }
+        async function getCountOfToday() {
+            const res = await TasksDataService.getCountOfToday()
+            setCountOfToday(res.data[0].countOfToday)
+        }
+        getCountOfIncoming()
+        getCountOfToday()
       }, [tasks]);
 
     return (
@@ -33,21 +33,21 @@ export function Sidebar(props: SidebarProps) {
             <button onClick={()=>{dispatch(setCurrentTab("incoming"))}} className={`sidebar__button ${(view.currentTab === "incoming")?"sidebar__button_current":""}`}>
                 <DrawerIcon/>
                 <p className="sidebar__text">Входящие</p>
-                <p className="sidebar__number-of-tasks">{view.countOfIncoming}</p>
+                <p className="sidebar__number-of-tasks">{countOfIncoming}</p>
             </button>
             <button onClick={()=>{dispatch(setCurrentTab("today"))}} className={`sidebar__button ${(view.currentTab === "today")?"sidebar__button_current":""}`}>
                 <DayOfCalendarIcon/>
                 <p className="sidebar__text">Сегодня</p>
-                <p className="sidebar__number-of-tasks">{view.countOfToday}</p>
+                <p className="sidebar__number-of-tasks">{countOfToday}</p>
             </button>
             <button onClick={()=>{dispatch(setCurrentTab("next_week"))}} className={`sidebar__button ${(view.currentTab === "next_week")?"sidebar__button_current":""}`}>
                 <CalendarIcon/>
                 <p className="sidebar__text">Следующие 7 дней</p>
-                <p className="sidebar__number-of-tasks">{props.numberOfUpcoming}</p>
+                <p className="sidebar__number-of-tasks">{0}</p>
             </button>
             <div className="dropdown-lists">
-                <DropdownList isChangingModeOn={true} {...{ items: props.projectsNames, dropdownListName: 'Проекты', numberOfTasksInItem: props.numberOfTasksInProject, colorsOfItems: props.colorsOfProjects }}/>
-                <DropdownList isChangingModeOn={true} {...{ items: props.tagsNames, dropdownListName: 'Теги', numberOfTasksInItem: props.numberOfTasksInTag, colorsOfItems: props.colorsOfTags }}/>
+                <ProjectsList {...{isChangingModeOn: true}}/>
+                <TagsList {...{isChangingModeOn: true}}/>
             </div>
             <button onClick={()=>{dispatch(setCurrentTab("done"))}} className={`sidebar__button ${(view.currentTab === "done")?"sidebar__button_current":""}`}>
                 <Tick/>

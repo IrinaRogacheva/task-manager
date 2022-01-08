@@ -55,13 +55,40 @@ export const getTodayTasks = () => async (dispatch: AppDispatch) => {
     }
 };
 
+export const getTasksOfProject = (projectId: number) => async (dispatch: AppDispatch) => {
+    try {
+        const res = await TasksDataService.getTasksOfProject(projectId);
+
+        dispatch({
+            type: GET_TASKS,
+            payload: res.data,
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const getTasksOfTag = (tagId: number) => async (dispatch: AppDispatch) => {
+    try {
+        const res = await TasksDataService.getTasksOfTag(tagId);
+
+        dispatch({
+            type: GET_TASKS,
+            payload: res.data,
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
 export const addTask = (task: Task) => async (dispatch: AppDispatch) => {
     try {
         const res = await TasksDataService.addTask(task);
-  
+        const insertedTask = await TasksDataService.getById(res.data.insertId);
+
         dispatch({
             type: ADD_TASK,
-            payload: res.data,
+            payload: insertedTask.data[0],
         });
   
         return Promise.resolve(res.data);
@@ -70,13 +97,30 @@ export const addTask = (task: Task) => async (dispatch: AppDispatch) => {
     }
 };
 
-export const updateTask = (id: number, data: any) => async (dispatch: AppDispatch) => {
+export const updateTaskStatus = (id: number, data: any) => async (dispatch: AppDispatch) => {
     try {
-      const res = await TasksDataService.update(id, data);
-  
+      const res = await TasksDataService.updateStatus(id, data);
+      const updatedTask = await TasksDataService.getById(id);
+
       dispatch({
         type: UPDATE_TASK,
-        payload: data,
+        payload: updatedTask.data[0],
+      });
+  
+      return Promise.resolve(res.data);
+    } catch (err) {
+      return Promise.reject(err);
+    }
+  };
+
+  export const updateTaskName = (id: number, data: any) => async (dispatch: AppDispatch) => {
+    try {
+      const res = await TasksDataService.updateName(id, data);
+      const updatedTask = await TasksDataService.getById(id);
+
+      dispatch({
+        type: UPDATE_TASK,
+        payload: updatedTask.data[0],
       });
   
       return Promise.resolve(res.data);

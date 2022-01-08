@@ -11,7 +11,8 @@ const initialState: Task = {
     priority: 0,
     id_parent_task: null,
     id_project: null,
-    id_author: 1
+    id_author: 1,
+    status: 0,
   };
 
   function newTaskReducer(task = initialState, action: PayloadAction<any>): Task {

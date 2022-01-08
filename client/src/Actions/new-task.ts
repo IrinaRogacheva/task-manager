@@ -15,7 +15,7 @@ export const setTaskName = (name: string) => (dispatch: AppDispatch) => {
     });
 };
 
-export const setTaskDate = (date: string) => (dispatch: AppDispatch) => {
+export const setTaskDate = (date: string|null) => (dispatch: AppDispatch) => {
     dispatch({
         type: SET_TASK_DATE,
         payload: date,

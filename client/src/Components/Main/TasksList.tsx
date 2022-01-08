@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import './Main.css'
-import { getDeletedTasks, getDoneTasks, getIncomingTasks, getTodayTasks } from '../../Actions/tasks'
+import { getDeletedTasks, getDoneTasks, getIncomingTasks, getTasksOfProject, getTasksOfTag, getTodayTasks } from '../../Actions/tasks'
 import { RootState } from '../../store';
 import Task from './Task';
 
@@ -22,8 +22,13 @@ export default function TasksList(props: any) {
     } else if (view.currentTab === "deleted") {
       dispatch(getDeletedTasks())
     }
-    
-  }, [dispatch, tasksList, view.currentTab]);
+    else if (view.currentTab === "project") {
+      dispatch(getTasksOfProject(view.currentTabProjectId))
+    }
+    else if (view.currentTab === "tag") {
+      dispatch(getTasksOfTag(view.currentTabTagId))
+    }
+  }, [dispatch, view.currentTab, view.currentTabProjectId, view.currentTabTagId]);
 
   return (
     <ul className='main_tasks-list'>

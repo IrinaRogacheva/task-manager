@@ -2,8 +2,6 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { clearTrash } from '../../Actions/tasks';
 import { RootState } from '../../store';
-import DeletedTaskMessage from './DeletedTaskMessage';
-import DoneTaskMessage from './DoneTaskMessage';
 import './Main.css'
 import NewTaskInput from './NewTaskInput';
 import TasksList from './TasksList';
@@ -23,8 +21,7 @@ export function Main(props: any) {
           <NewTaskInput/>
           }
           <TasksList/>
-          <DoneTaskMessage/>
-          <DeletedTaskMessage/>
+          
         </div>
       );
 }

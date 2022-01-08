@@ -74,6 +74,9 @@ export default function NewTaskInput(props: any) {
   useEffect(() => {
     if (view.currentTab === "today" || view.currentTab === "next_week") {
       dispatch(setTaskDate(moment().format('YYYY-MM-DD')))
+    } else
+    {
+      dispatch(setTaskDate(null))
     }
   }, [dispatch, view.currentTab]);
 
@@ -82,6 +85,13 @@ export default function NewTaskInput(props: any) {
     {
       dispatch(addTask(newTask))
       dispatch(setPriority(0))
+      dispatch(setTaskName(""))
+      if (view.currentTab === "today" || view.currentTab === "next_week") {
+        dispatch(setTaskDate(moment().format('YYYY-MM-DD')))
+      } else
+      {
+        dispatch(setTaskDate(null))
+      }
       if (inputRef.current)
       {
         inputRef.current.value = ""

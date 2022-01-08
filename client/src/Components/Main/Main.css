@@ -302,8 +302,13 @@
     background: #2A2D33;
     border-radius: 3px;
     padding: 10px 13px 10px 5px;
-    bottom: 15px;
+    bottom: 20px;
     align-items: center;
+    left: 0;
+    right: 0;
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .cancel_button
@@ -327,4 +332,152 @@
     cursor: pointer;
     padding: 0px 3px;
     border-radius: 2px;
+}
+
+.create_project__background
+{
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    display: block;
+    background: #000000;
+    opacity: 0.3;
+}
+
+.create_project
+{
+    background: #fff;
+    border-radius: 3px;
+    padding: 9px 20px 15px 22px;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    align-items: center;
+    width: max-content;
+    height: 210px;
+}
+
+.create_project_title-wrapper
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.create_project__title
+{
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #444;
+    padding: 12px 0;
+}
+
+.create_project__input
+{
+    display: block;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    border: 1px solid #dfdae3;
+    outline: none;
+    background: #dfdae3;
+    color: #444;
+    width: 300px;
+    border-radius: 4px;
+    padding: 8px 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
+.create_project__input:hover
+{
+    border: 1px solid #f58c74;
+}
+
+.color_block
+{
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.color_label
+{
+    margin-right: 20px;
+    font-size: 15px;
+    color: #787878;
+    cursor: pointer;
+}
+
+.color_circle
+{
+    width: 28px;
+    height: 28px;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: transform 100ms ease 0s;
+}
+
+.color_circle:hover
+{
+    transform: scale(1.2);
+}
+
+.colors_collection
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+    padding: 10px;
+    top: 145px;
+    left: 77px;
+}
+
+.create_project_buttons-wrapper
+{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+.create_project_cancel_button
+{
+    border: 1px solid #c1c1c1;
+    border-radius: 3px;
+    color: #a3a3a3;
+    background-color: #fff;
+    font-weight: 600;
+    padding: 7px 12px;
+    cursor: pointer;
+}
+
+.create_project_cancel_button:hover
+{
+    background-color: #f3f3f3;
+}
+
+.create_project_save_button
+{
+    border: 1px solid #f58c74;
+    border-radius: 3px;
+    cursor: pointer;
+    background: transparent;
+    color: #f58c74;
+    font-weight: 600;
+    margin-left: 15px;
+    padding: 7px 13px;
+}
+
+.create_project_save_button:disabled
+{
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+.create_project_save_button:hover
+{
+    background-color: #f8f9ff;
 }

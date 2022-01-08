@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { ADD_TASK, GET_TASKS } from "../Actions/types";
+import { ADD_TASK, CLEAR_TRASH, GET_TASKS, UPDATE_TASK } from "../Actions/types";
 import { Task } from '../entries';
   
 const initialState: Array<Task> = [];
@@ -9,28 +9,31 @@ const initialState: Array<Task> = [];
   
     switch (type) {
       case ADD_TASK:
-        return [...tasks, payload];
+        return [payload, ...tasks];
   
       case GET_TASKS:
         return payload;
-  /*
-      case UPDATE_TUTORIAL:
-        return tutorials.map((tutorial) => {
-          if (tutorial.id === payload.id) {
+  
+      case UPDATE_TASK:
+        if (payload.status !== 0)
+        {
+          return tasks
+          .filter(task => task.id_task !== payload.id_task)
+        }
+        return tasks
+          .map((task) => {
+          if (task.id_task === payload.id) {
             return {
-              ...tutorial,
+              ...task,
               ...payload,
             };
           } else {
-            return tutorial;
+            return task;
           }
         });
-  
-      case DELETE_TUTORIAL:
-        return tutorials.filter(({ id }) => id !== payload.id);
-  
-      case DELETE_ALL_TUTORIALS:
-        return [];*/
+
+      case CLEAR_TRASH:
+        return [];
   
       default:
         return tasks;

@@ -1,4 +1,4 @@
-export type { Task, View, App }
+export type { Task, Project, Tag, View, App }
 
 type Task = {
     id_task: number,
@@ -10,6 +10,19 @@ type Task = {
     id_parent_task: number|null,
     id_project: number|null,
     id_author: number,
+    status: number,
+}
+
+type Project = {
+    id_project: number,
+    name: string,
+    color: string,
+}
+
+type Tag = {
+    id_tag: number,
+    name: string,
+    color: string,
 }
 
 type View = {
@@ -19,14 +32,17 @@ type View = {
     idTaskDone: number,
     idTaskDeleted: number,
     currentTab: string,
-    currentTabProjectId: number|null,
-    currentTabTagId: number|null,
+    currentTabProjectId: number,
+    currentTabTagId: number,
     countOfIncoming: number,
     countOfToday: number,
+    isCreateProject: boolean,
+    isCreateTag: boolean
 }
 
 type App = {
     newTask: Task,
     tasks: Array<Task>,
+    projects: Array<Project>,
     view: View
 }
