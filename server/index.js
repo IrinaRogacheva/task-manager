@@ -72,7 +72,7 @@ app.get('/api/get_tasks_of_project/:id', (req, res) => {
 app.get('/api/get_tasks_of_tag/:id', (req, res) => {
     const id = req.params.id
     
-    const query = "SELECT `task`.`id_task`, `name`, `description`, `date`, `time`, `priority`, `id_parent_task`, `id_project`, `id_author`, `status` FROM `task` INNER JOIN `task_in_tag` ON `task`.`id_task` = `task_in_tag`.`id_task` WHERE `task_in_tag`.`id_tag` = ? AND `status` = 0"
+    const query = "SELECT `task`.`id_task`, `name`, `description`, `date`, `time`, `priority`, `id_parent_task`, `id_project`, `id_tag`, `id_author`, `status` FROM `task` INNER JOIN `task_in_tag` ON `task`.`id_task` = `task_in_tag`.`id_task` WHERE `task_in_tag`.`id_tag` = ? AND `status` = 0"
     db.query(query,[id],(err, result) => {
         res.send(result)
     })
@@ -97,10 +97,11 @@ app.post('/api/add_task', (req, res) => {
     const taskName = req.body.name
     const date = req.body.date
     const priority = req.body.priority
+    const idProject = req.body.id_project
     const idAuthor = req.body.id_author
 
-    const insertTask = "INSERT INTO `task` (`name`, `date`, `priority`, `id_author`) VALUES (?, ?, ?, ?)"
-    db.query(insertTask, [taskName, date, priority, idAuthor],(err, result) => {
+    const insertTask = "INSERT INTO `task` (`name`, `date`, `priority`, `id_project`, `id_author`) VALUES (?, ?, ?, ?, ?)"
+    db.query(insertTask, [taskName, date, priority, idProject, idAuthor],(err, result) => {
         res.send(result)
     })
 })
@@ -125,7 +126,6 @@ app.put('/api/update_task_name/:id_task', (req, res) => {
     console.log("task name: "+ taskName)
     const updateTask = "UPDATE `task` SET `name` = ? WHERE `id_task`=?"
     db.query(updateTask, [taskName, idTask],(err, result) => {
-        console.log(result)
         res.send(result)
     })
 })
@@ -161,6 +161,19 @@ app.post('/api/add_project', (req, res) => {
     
     const insertTask = "INSERT INTO `project` (`name`, `color`) VALUES (?, ?)"
     db.query(insertTask, [projectName, color],(err, result) => {
+        console.log(result)
+        res.send(result)
+    })
+})
+
+app.post('/api/add_tag_to_task', (req, res) => {
+    const idTask = req.body.id_task
+    const idTag = req.body.id_tag
+    console.log("idTask: "+idTask)
+    console.log("idTag: "+idTag)
+
+    const insertTask = "INSERT INTO `task_in_tag` (`id_task`, `id_tag`) VALUES (?, ?)"
+    db.query(insertTask, [idTask,idTag],(err, result) => {
         console.log(result)
         res.send(result)
     })

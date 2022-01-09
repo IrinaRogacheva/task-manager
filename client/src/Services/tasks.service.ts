@@ -52,6 +52,10 @@ class TasksDataService {
   updateName(id: number, data: any) {
     return http.put(`/update_task_name/${id}`, data);
   }
+
+  addTagToTask(idTask: number, idTag: number) {
+    return http.post(`/add_tag_to_task`, {id_task: idTask, id_tag: idTag});
+  }
 /*
   delete(id) {
     return http.delete(`/tutorials/${id}`);

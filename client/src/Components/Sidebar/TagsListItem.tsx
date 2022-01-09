@@ -4,6 +4,7 @@ import { RootState } from '../../store';
 import TagsDataService from "../../Services/tags.service";
 import './Sidebar.css'
 import { setCurrentTab, setCurrentTabTagId } from '../../Actions/view';
+import { setTaskTag } from '../../Actions/new-task';
 
 export function TagsListItem(props: any) {
     const [countOfTasks, setCountOfTasks] = useState(0)
@@ -17,9 +18,19 @@ export function TagsListItem(props: any) {
       }, [tasks]);
 
     const view = useSelector((state: RootState) => state.view)
+    const newTask = useSelector((state: RootState) => state.newTask)
     const dispatch = useDispatch()
+    const processClick = () => {
+        if (props.isChangingModeOn) {
+            dispatch(setCurrentTab("tag"))
+            dispatch(setCurrentTabTagId(props.tag.id_tag))
+        } else {
+            dispatch(setTaskTag(props.tag.id_tag))
+        }
+    }
+
     return (
-        <div onClick={()=>{dispatch(setCurrentTab("tag"));dispatch(setCurrentTabTagId(props.tag.id_tag))}} className={`dropdown_list__item-wrapper ${(view.currentTab === "tag" && view.currentTabTagId === props.tag.id_tag)?"sidebar__button_current":""}`}>
+        <div onClick={()=>{processClick()}} className={`dropdown_list__item-wrapper ${(view.currentTab === "tag" && view.currentTabTagId === props.tag.id_tag)?"sidebar__button_current":""} ${newTask.id_tag===props.tag.id_tag?"new_task_project_current":""}`}>
             <span className='dropdown_list__marker' style={{backgroundColor: "#" + props.tag.color}}></span>
             <li className='dropdown_list__item'>
                 {props.tag.name}

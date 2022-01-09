@@ -85,6 +85,10 @@ export const addTask = (task: Task) => async (dispatch: AppDispatch) => {
     try {
         const res = await TasksDataService.addTask(task);
         const insertedTask = await TasksDataService.getById(res.data.insertId);
+        if (task.id_tag)
+        {
+            await TasksDataService.addTagToTask(res.data.insertId, task.id_tag);
+        }
 
         dispatch({
             type: ADD_TASK,

@@ -29,6 +29,7 @@
     width: 30px;
     height: 27px;
     cursor: pointer;
+    margin-right: 25px;
 }
 
 .main_input-wraper
@@ -66,7 +67,7 @@
     font-size: 15px;
     border: 1px solid #dfdae3;
     outline: none;
-    background: #dfdae3;
+    background: #dddfe7;
     color: #444;
     width: 100%;
     border-radius: 4px;
@@ -199,6 +200,17 @@
     position: relative;
 }
 
+.main_task-block_current .main_tasks-list__item
+{
+    background: #e7e9f1;
+    cursor: text;
+}
+
+.main_task-block.main_task-block_current:hover  .main_tasks-list__item
+{
+    background: #e7e9f1;
+}
+
 .main_task-checkbox
 {
     width: 13px;
@@ -207,6 +219,11 @@
     cursor: pointer;
     position: absolute;
     left: 15px;
+}
+
+.disabled
+{
+    cursor: not-allowed;
 }
 
 .main_task-checkbox_p1
@@ -241,11 +258,12 @@
     background: transparent;
     border-bottom: 1px solid #e7e9f1;
     box-sizing: border-box;
+    cursor: default;
 }
 
-.main_task-wrapper:hover .main_tasks-list__item
+.main_task-block:hover .main_tasks-list__item
 {
-    background: #f3eef7;
+    background: rgba(231, 233, 241, 0.4);
 }
 
 .main_tasks-list__item:focus
@@ -258,12 +276,18 @@
     display: none;
     position: absolute;
     right: -3px;
+    bottom: 7px;
     cursor: pointer;
     padding: 0 4px;
     border-radius: 3px;
 }
 
-.main_task-wrapper:hover .main_context-menu-wrapper
+.main_task-block
+{
+    position: relative;
+}
+
+.main_task-block:hover .main_context-menu-wrapper
 {
     display: block;
 }
@@ -272,8 +296,8 @@
 {
     width: 210px;
     height: 300px;   
-    top: 0;
-    right: 20px;
+    top: 35px;
+    right: -5px;
 }
 
 .task-context-menu__button

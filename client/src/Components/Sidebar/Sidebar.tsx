@@ -49,7 +49,7 @@ export function Sidebar(props: any) {
                 <ProjectsList {...{isChangingModeOn: true}}/>
                 <TagsList {...{isChangingModeOn: true}}/>
             </div>
-            <button onClick={()=>{dispatch(setCurrentTab("done"))}} className={`sidebar__button ${(view.currentTab === "done")?"sidebar__button_current":""}`}>
+            <button style={{margin:"0 3px"}} onClick={()=>{dispatch(setCurrentTab("done"))}} className={`sidebar__button ${(view.currentTab === "done")?"sidebar__button_current":""}`}>
                 <Tick/>
                 <p className="sidebar__text">Выполнено</p>
             </button>

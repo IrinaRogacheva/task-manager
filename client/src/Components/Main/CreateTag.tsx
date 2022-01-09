@@ -56,7 +56,7 @@ export default function CreateTag(props: any) {
         </div>
         <div className='create_project_buttons-wrapper'>
             <button onClick={()=>{dispatch(setCreateTag(false));setInputValue("");setColor(colors.COLOR18)}} className='create_project_cancel_button sidebar__text'>Отмена</button>
-            <button onClick={()=>{createTag();dispatch(setCreateTag(false))}} disabled={inputValue.length<1} className='create_project_save_button sidebar__text'>Сохранить</button>
+            <button onClick={()=>{createTag();dispatch(setCreateTag(false))}} disabled={inputValue.length<1 && inputValue.replace(/\s/g, '').length > 0} className='create_project_save_button sidebar__text'>Сохранить</button>
         </div>
     </div>
   </div>

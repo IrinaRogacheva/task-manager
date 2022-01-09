@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { SET_CREATE_PROJECT, SET_CREATE_TAG, SET_CURRENT_PROJECT_ID, SET_CURRENT_TAB, SET_CURRENT_TAG_ID, SET_DELETED_ID_TASK, SET_DELETED_MESSAGE_VISIBILITY, SET_DONE_ID_TASK, SET_DONE_MESSAGE_VISIBILITY, TOGGLE_SIDEDEBAR_VISIBILITY } from "../Actions/types";
+import { SET_CREATE_PROJECT, SET_CREATE_TAG, SET_CURRENT_PROJECT_ID, SET_CURRENT_TAB, SET_CURRENT_TAG_ID, SET_CURRENT_TASK, SET_DELETED_ID_TASK, SET_DELETED_MESSAGE_VISIBILITY, SET_DONE_ID_TASK, SET_DONE_MESSAGE_VISIBILITY, TOGGLE_SIDEDEBAR_VISIBILITY } from "../Actions/types";
 import { View } from '../entries';
 
 const initialState: View = {
@@ -11,6 +11,7 @@ const initialState: View = {
     currentTab: "incoming",
     currentTabProjectId: 0,
     currentTabTagId: 0,
+    currentTaskId: null,
     countOfIncoming: 0,
     countOfToday: 0,
     isCreateProject: false,
@@ -44,6 +45,9 @@ const initialState: View = {
 
       case SET_CURRENT_TAG_ID:
         return {...view, currentTabTagId: payload};
+        
+      case SET_CURRENT_TASK:
+        return {...view, currentTaskId: payload};
 
       case SET_CREATE_PROJECT:
         return {...view, isCreateProject: payload};

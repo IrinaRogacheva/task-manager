@@ -9,6 +9,7 @@ type Task = {
     priority: number|null,
     id_parent_task: number|null,
     id_project: number|null,
+    id_tag: number|null,
     id_author: number,
     status: number,
 }
@@ -34,6 +35,7 @@ type View = {
     currentTab: string,
     currentTabProjectId: number,
     currentTabTagId: number,
+    currentTaskId: number|null,
     countOfIncoming: number,
     countOfToday: number,
     isCreateProject: boolean,

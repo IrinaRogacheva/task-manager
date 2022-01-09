@@ -1,5 +1,5 @@
 import { AppDispatch } from "../store";
-import { SET_CREATE_PROJECT, SET_CREATE_TAG, SET_CURRENT_PROJECT_ID, SET_CURRENT_TAB, SET_CURRENT_TAG_ID, SET_DELETED_ID_TASK, SET_DELETED_MESSAGE_VISIBILITY, SET_DONE_ID_TASK, SET_DONE_MESSAGE_VISIBILITY, TOGGLE_SIDEDEBAR_VISIBILITY } from "./types";
+import { SET_CURRENT_TASK, SET_CREATE_PROJECT, SET_CREATE_TAG, SET_CURRENT_PROJECT_ID, SET_CURRENT_TAB, SET_CURRENT_TAG_ID, SET_DELETED_ID_TASK, SET_DELETED_MESSAGE_VISIBILITY, SET_DONE_ID_TASK, SET_DONE_MESSAGE_VISIBILITY, TOGGLE_SIDEDEBAR_VISIBILITY } from "./types";
 
 export const toggleSidebarVisibility = (sidebarVisibility: boolean) => (dispatch: AppDispatch) => {
     dispatch({
@@ -55,6 +55,16 @@ export const setCurrentTabTagId = (tagId: number) => (dispatch: AppDispatch) => 
         type: SET_CURRENT_TAG_ID,
         payload: tagId,
     });
+};
+
+export const setCurrentTaskId = (taskId: number|null) => (dispatch: AppDispatch) => {
+    if (taskId)
+    {
+        dispatch({
+            type: SET_CURRENT_TASK,
+            payload: taskId,
+        });
+    }
 };
 
 export const setCreateProject = (isCreateProject: boolean) => (dispatch: AppDispatch) => {

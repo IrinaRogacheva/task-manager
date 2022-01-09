@@ -22,7 +22,12 @@
 
 .sidebar__button_current
 {
-    background-color: #dfdae3;
+    background-color: #d3d5dd;
+}
+
+.new_task_project_current
+{
+    background-color: #e7e9f1;
 }
 
 .sidebar__button:hover

@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { useRef, useState, FocusEvent, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { setPriority, setTaskDate, setTaskName } from '../../Actions/new-task';
+import { setPriority, setTaskDate, setTaskName, setTaskProject, setTaskTag } from '../../Actions/new-task';
 import { addTask } from '../../Actions/tasks';
 import { RootState } from '../../store';
 import { AddDate, Arrow, Plus } from '../Icons';
@@ -12,12 +12,12 @@ import { TaskCondiments } from './TaskCondiments';
 export default function NewTaskInput(props: any) { 
   const [isHover, setIsHover] = useState(false)
   const [isPlaceholderVisible, setIsPlaceholderVisible] = useState(false)
-  const [isCalendarVisible, setIsCalendarVisible] = useState(true)
-  const [isCondimentsVisible, setIsCondimentsVisible] = useState(true)
+  const [isCalendarVisible, setIsCalendarVisible] = useState(false)
+  const [isCondimentsVisible, setIsCondimentsVisible] = useState(false)
   const [isAddingTaskModeOn, setIsAddingTaskModeOn] = useState(false)
 
   const checkIsPlaceholderVisible = (e: FocusEvent) => {
-    if (e.relatedTarget !== null || (e.target as HTMLInputElement).value.length > 0) {
+    if ((e.relatedTarget !== null && (e.relatedTarget as HTMLInputElement).type !== "text") || (e.target as HTMLInputElement).value.length > 0) {
       setIsPlaceholderVisible(true) //hide
     }
     else
@@ -27,7 +27,7 @@ export default function NewTaskInput(props: any) {
   }
 
   const checkIsAddingTaskModeOn = (e: FocusEvent) => {
-    if(e.relatedTarget !== null) {
+    if(e.relatedTarget !== null && (e.relatedTarget as HTMLInputElement).type !== "text") {
       (e.currentTarget as HTMLInputElement).focus()
     }
     else {
@@ -49,16 +49,22 @@ export default function NewTaskInput(props: any) {
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
-      if(calendarRef.current && !calendarRef.current.contains(e.target as Node) && condimentsRef.current && !condimentsRef.current.contains(e.target as Node) && condimentsButtonRef.current && !condimentsButtonRef.current.contains(e.target as Node) && calendarButtonRef.current && !calendarButtonRef.current.contains(e.target as Node))
+      if((condimentsButtonRef.current && condimentsButtonRef.current.contains(e.target as Node)) || (calendarButtonRef.current && calendarButtonRef.current.contains(e.target as Node)))
       {
-        setIsCondimentsVisible(true)
-        setIsCalendarVisible(true)
-        console.log('onClick at other element')
+        return
+      }
+      if(calendarRef.current && !calendarRef.current.contains(e.target as Node))
+      {
+        setIsCalendarVisible(false)
+      }
+      if(condimentsRef.current && !condimentsRef.current.contains(e.target as Node))
+      {
+        setIsCondimentsVisible(false)
       }
     }
     document.addEventListener('click', onClick)
     return () => document.removeEventListener('click', onClick)
-  }, [isCalendarVisible, isCondimentsVisible])
+  }, [])
 
   const dispatch = useDispatch()
   const newTask = useSelector(((state: RootState) => state.newTask))
@@ -81,11 +87,13 @@ export default function NewTaskInput(props: any) {
   }, [dispatch, view.currentTab]);
 
   useEffect(() => {
-    if (newTask.name.length > 0)
+    if (newTask.name.length > 0 && newTask.name.replace(/\s/g, '').length > 0)
     {
       dispatch(addTask(newTask))
       dispatch(setPriority(0))
       dispatch(setTaskName(""))
+      dispatch(setTaskProject(null))
+      dispatch(setTaskTag(null))
       if (view.currentTab === "today" || view.currentTab === "next_week") {
         dispatch(setTaskDate(moment().format('YYYY-MM-DD')))
       } else
@@ -108,17 +116,17 @@ export default function NewTaskInput(props: any) {
         </div>
         <input ref={inputRef} onKeyDown={(e)=>{if (e.key === 'Enter') {submitReview()}}} className='main__input' autoComplete="off" type='text' onFocus={()=>{setIsPlaceholderVisible(true);setIsAddingTaskModeOn(true)}} onBlur={(e)=>{checkIsAddingTaskModeOn(e as FocusEvent); checkIsPlaceholderVisible((e as FocusEvent))}}/>
         <div className='main_input-condiments' style={{display: (isAddingTaskModeOn?'flex':'none')}}>
-          <div ref={calendarButtonRef} tabIndex={0} onClick={()=>{setIsCalendarVisible(!isCalendarVisible);setIsCondimentsVisible(true)}} className='input-icon main__input-icon_right-border'>
+          <div ref={calendarButtonRef} tabIndex={0} onClick={()=>{setIsCalendarVisible(!isCalendarVisible);setIsCondimentsVisible(false)}} className='input-icon main__input-icon_right-border'>
             <AddDate/>
           </div>
           <div ref={calendarRef}>
-            <Calendar {...{style: {display: (isCalendarVisible?'none':'block')}, attr: {tabIndex: 0}}}/>
+            <Calendar {...{style: {display: (isCalendarVisible?'block':'none')}, attr: {tabIndex: 0}}}/>
           </div>
-          <div ref={condimentsButtonRef} tabIndex={0} onClick={()=>{setIsCondimentsVisible(!isCondimentsVisible);setIsCalendarVisible(true)}} className='input-icon input-icon__arrow'>
+          <div ref={condimentsButtonRef} tabIndex={0} onClick={()=>{setIsCondimentsVisible(!isCondimentsVisible);setIsCalendarVisible(false)}} className='input-icon input-icon__arrow'>
             <Arrow {...{fill: "#f58c74", width: "13px", height: "13px"}}/>
           </div>
           <div ref={condimentsRef}>
-            <TaskCondiments {...{style: {display: (isCondimentsVisible?'none':'block')}, attr: {tabIndex: 0}}}/>
+            <TaskCondiments {...{style: {display: (isCondimentsVisible?'block':'none')}, attr: {tabIndex: 0}}}/>
           </div>
         </div>
       </div>

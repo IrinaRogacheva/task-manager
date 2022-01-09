@@ -30,12 +30,31 @@ export default function TasksList(props: any) {
     }
   }, [dispatch, view.currentTab, view.currentTabProjectId, view.currentTabTagId]);
 
+  useEffect(() => {
+      const onClick = (e: MouseEvent) => {
+        const closestElement = (e.target as HTMLElement).closest(`[data-name="task"]`)
+        if (closestElement) {
+          const taskContextMenuButton = document.querySelector(`[data-name="task_context_menu_button_${(closestElement as HTMLElement).dataset.id}"]`)
+          if (taskContextMenuButton && (e.target as HTMLElement).contains(taskContextMenuButton)) {
+            console.log("return from useEffect")
+            return
+          }
+        } 
+        const taskContextMenu = document.querySelector(`.task-context-menu`)
+        if(taskContextMenu && (taskContextMenu as HTMLElement).style.display === "block" && !(taskContextMenu as HTMLElement).contains(e.target as HTMLElement))
+        {
+          (taskContextMenu as HTMLElement).style.display = "none"
+          console.log('onClick at other element than context menu')
+        }
+      }
+      document.addEventListener('click', onClick)
+      return () => document.removeEventListener('click', onClick)
+  }, [])
+
   return (
     <ul className='main_tasks-list'>
       {tasksList.map((task)=>{
-        return <div key={task.id_task}>
-          <Task {...task}/>
-        </div>
+        return <Task key={task.id_task} {...task}/>
       })}
     </ul>
   );
