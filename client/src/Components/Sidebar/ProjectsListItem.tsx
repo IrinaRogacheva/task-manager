@@ -5,6 +5,7 @@ import ProjectsDataService from "../../Services/projects.service";
 import './Sidebar.css'
 import { setCurrentTab, setCurrentTabProjectId } from '../../Actions/view';
 import { setTaskProject } from '../../Actions/new-task';
+import { ProjectContextMenu } from './ProjectContextMenu';
 
 export function ProjectsListItem(props: any) {
     const [countOfTasks, setCountOfTasks] = useState(0)
@@ -21,22 +22,33 @@ export function ProjectsListItem(props: any) {
     const view = useSelector((state: RootState) => state.view)
     const newTask = useSelector((state: RootState) => state.newTask)
 
-    const processClick = () => {
+    const processClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (props.isChangingModeOn) {
-            dispatch(setCurrentTab("project"))
-            dispatch(setCurrentTabProjectId(props.project.id_project))
+            const closestElement = (e.target as HTMLElement).closest(`.project-context-menu`)
+            if ((e.target as HTMLElement).tagName !== "svg" && (e.target as HTMLElement).tagName !== "path" && !closestElement)
+            {
+                dispatch(setCurrentTab("project"))
+                dispatch(setCurrentTabProjectId(props.project.id_project))
+            }
         } else {
-            dispatch(setTaskProject(props.project.id_project))
+            if (newTask.id_project === props.project.id_project) {
+                dispatch(setTaskProject(null))
+            } else {
+                dispatch(setTaskProject(props.project.id_project))
+            }
         }
     }
     return (
-        <div onClick={()=>{processClick()}} className={`dropdown_list__item-wrapper ${(view.currentTab === "project" && view.currentTabProjectId === props.project.id_project)?"sidebar__button_current":""} ${newTask.id_project===props.project.id_project?"new_task_project_current":""}`}>
+        <div data-name="project" data-id={props.project.id_project} onClick={(e)=>{processClick(e)}} className={`dropdown_list__item-wrapper ${(props.isChangingModeOn && view.currentTab === "project" && view.currentTabProjectId === props.project.id_project)?"sidebar__button_current":""} ${!props.isChangingModeOn && newTask.id_project===props.project.id_project?"new_task_project_current":""}`}>
             <span className='dropdown_list__marker' style={{backgroundColor: "#" + props.project.color}}></span>
             <li className='dropdown_list__item'>
                 {props.project.name}
             </li>
             {props.isChangingModeOn &&
+            <>
             <div className="sidebar__number-of-tasks">{countOfTasks}</div>
+            <ProjectContextMenu {...{id_project: props.project.id_project}}/>        
+            </>
             }
         </div> 
     );

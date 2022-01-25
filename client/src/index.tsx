@@ -5,11 +5,20 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './store';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Register from './Components/Users/Register';
+import Login from './Components/Users/Login';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
+  </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

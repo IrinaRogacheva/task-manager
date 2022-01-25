@@ -1,8 +1,9 @@
 import moment from 'moment';
 import React, { useRef, useState, FocusEvent, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { setPriority, setTaskDate, setTaskName, setTaskProject, setTaskTag } from '../../Actions/new-task';
+import { addTagToNewTask, clearTagsList, setPriority, setTaskDate, setTaskName, setTaskProject } from '../../Actions/new-task';
 import { addTask } from '../../Actions/tasks';
+import { Tag } from '../../entries';
 import { RootState } from '../../store';
 import { AddDate, Arrow, Plus } from '../Icons';
 import { Calendar } from './Calendar';
@@ -73,10 +74,13 @@ export default function NewTaskInput(props: any) {
     if (inputRef.current)
     {
       dispatch(setTaskName(inputRef.current.value))
+      setIsCalendarVisible(false)
+      setIsCondimentsVisible(false)
     }
   }
 
-  const view = useSelector(((state: RootState) => state.view))
+  const view = useSelector((state: RootState) => state.view)
+  const tags = useSelector((state: RootState) => state.tags)
   useEffect(() => {
     if (view.currentTab === "today" || view.currentTab === "next_week") {
       dispatch(setTaskDate(moment().format('YYYY-MM-DD')))
@@ -84,7 +88,17 @@ export default function NewTaskInput(props: any) {
     {
       dispatch(setTaskDate(null))
     }
-  }, [dispatch, view.currentTab]);
+    if (view.currentTab === "project") {
+      dispatch(setTaskProject(view.currentTabProjectId))
+    } else {
+      dispatch(setTaskProject(null))
+    }
+    if (view.currentTab === "tag") {
+      dispatch(addTagToNewTask((tags.find(tag => tag.id_tag === view.currentTabTagId) as Tag)))
+    } else {
+      dispatch(clearTagsList())
+    }
+  }, [view.currentTab, view.currentTabTagId, view.currentTabProjectId]);
 
   useEffect(() => {
     if (newTask.name.length > 0 && newTask.name.replace(/\s/g, '').length > 0)
@@ -93,7 +107,7 @@ export default function NewTaskInput(props: any) {
       dispatch(setPriority(0))
       dispatch(setTaskName(""))
       dispatch(setTaskProject(null))
-      dispatch(setTaskTag(null))
+      dispatch(clearTagsList())
       if (view.currentTab === "today" || view.currentTab === "next_week") {
         dispatch(setTaskDate(moment().format('YYYY-MM-DD')))
       } else

@@ -9,7 +9,7 @@ export default function TasksList(props: any) {
   const dispatch = useDispatch();
   const tasksList = useSelector((state: RootState) => state.tasks)
   const view = useSelector((state: RootState) => state.view)
-  
+
   useEffect(() => {
     if (view.currentTab === "incoming") {
       dispatch(getIncomingTasks());
@@ -31,20 +31,22 @@ export default function TasksList(props: any) {
   }, [dispatch, view.currentTab, view.currentTabProjectId, view.currentTabTagId]);
 
   useEffect(() => {
-      const onClick = (e: MouseEvent) => {
-        const closestElement = (e.target as HTMLElement).closest(`[data-name="task"]`)
-        if (closestElement) {
-          const taskContextMenuButton = document.querySelector(`[data-name="task_context_menu_button_${(closestElement as HTMLElement).dataset.id}"]`)
-          if (taskContextMenuButton && (e.target as HTMLElement).contains(taskContextMenuButton)) {
-            console.log("return from useEffect")
-            return
-          }
-        } 
-        const taskContextMenu = document.querySelector(`.task-context-menu`)
-        if(taskContextMenu && (taskContextMenu as HTMLElement).style.display === "block" && !(taskContextMenu as HTMLElement).contains(e.target as HTMLElement))
-        {
-          (taskContextMenu as HTMLElement).style.display = "none"
-          console.log('onClick at other element than context menu')
+    const onClick = (e: MouseEvent) => {
+      const closestElement = (e.target as HTMLElement).closest(`[data-name="task"]`)
+        const projectContextMenu = document.querySelectorAll(`.task-context-menu`)
+        if (projectContextMenu) {
+          projectContextMenu.forEach((menu) => {
+            if((menu as HTMLElement).style.display === "block" && !(menu as HTMLElement).contains(e.target as HTMLElement)) {
+              if(closestElement) {
+                  if ((menu as HTMLElement).dataset.name !== `task_context_menu_${(closestElement as HTMLElement).dataset.id}`) {
+                      (menu as HTMLElement).style.display = "none"
+                      console.log('onClick at other element than context menu')
+                  } 
+              } else {
+                (menu as HTMLElement).style.display = "none"
+              }
+            }
+          })
         }
       }
       document.addEventListener('click', onClick)
@@ -53,8 +55,8 @@ export default function TasksList(props: any) {
 
   return (
     <ul className='main_tasks-list'>
-      {tasksList.map((task)=>{
-        return <Task key={task.id_task} {...task}/>
+      {tasksList.map((task, index)=>{
+        return <Task key={task.id_task} {...{task: task, task_index: index}}/>
       })}
     </ul>
   );

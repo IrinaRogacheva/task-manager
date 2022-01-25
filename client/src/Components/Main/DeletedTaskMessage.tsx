@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { updateTaskStatus } from '../../Actions/tasks';
+import { takeBackTask, updateTaskStatus } from '../../Actions/tasks';
 import { setDeletedMesageVisibility } from '../../Actions/view';
 import { RootState } from '../../store';
 import { Plus } from '../Icons';
@@ -10,6 +10,7 @@ export default function DeletedTaskMessage(props: any) {
   const dispatch = useDispatch()
   const view = useSelector(((state: RootState) => state.view))
   const undoTaskDeleted = () => {
+    dispatch(takeBackTask(view.idTaskDeleted, view.deletedTaskIndex))
     dispatch(updateTaskStatus(view.idTaskDeleted, {status: 0}))
     dispatch(setDeletedMesageVisibility(false))
   }

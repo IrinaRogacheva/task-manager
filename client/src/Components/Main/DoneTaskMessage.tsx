@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { updateTaskStatus } from '../../Actions/tasks';
+import { takeBackTask, updateTaskStatus } from '../../Actions/tasks';
 import { setDoneMesageVisibility } from '../../Actions/view';
 import { RootState } from '../../store';
 import { Plus } from '../Icons';
@@ -10,6 +10,7 @@ export default function DoneTaskMessage(props: any) {
   const dispatch = useDispatch()
   const view = useSelector(((state: RootState) => state.view))
   const undoTaskDone = () => {
+    dispatch(takeBackTask(view.idTaskDone, view.doneTaskIndex))
     dispatch(updateTaskStatus(view.idTaskDone, {status: 0}))
     dispatch(setDoneMesageVisibility(false))
   }

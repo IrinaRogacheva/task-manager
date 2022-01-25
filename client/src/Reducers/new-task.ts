@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { SET_PRIORITY, SET_PROJECT, SET_TAG, SET_TASK_DATE, SET_TASK_NAME } from "../Actions/types";
+import { SET_PRIORITY, SET_PROJECT, ADD_TAG_TO_NEW_TASK, SET_TASK_DATE, SET_TASK_NAME, CLEAR_TAGS_LIST, DELETE_TAG_TO_NEW_TASK } from "../Actions/types";
 import { Task } from '../entries';
   
 const initialState: Task = {
@@ -11,7 +11,7 @@ const initialState: Task = {
     priority: 0,
     id_parent_task: null,
     id_project: null,
-    id_tag: null,
+    id_tags: [],
     id_author: 1,
     status: 0,
   };
@@ -32,8 +32,14 @@ const initialState: Task = {
       case SET_PROJECT:
         return {...task, id_project: payload};
 
-      case SET_TAG:
-        return {...task, id_tag: payload};  
+      case ADD_TAG_TO_NEW_TASK:
+        return {...task, id_tags: [...task.id_tags, payload]};  
+
+      case DELETE_TAG_TO_NEW_TASK:
+        return {...task, id_tags: task.id_tags.filter(tag => tag.id_tag !== payload)};
+
+      case CLEAR_TAGS_LIST:
+        return {...task, id_tags: []};
 
       default:
         return task;

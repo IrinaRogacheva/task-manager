@@ -1,5 +1,5 @@
 import { AppDispatch } from "../store";
-import { SET_CURRENT_TASK, SET_CREATE_PROJECT, SET_CREATE_TAG, SET_CURRENT_PROJECT_ID, SET_CURRENT_TAB, SET_CURRENT_TAG_ID, SET_DELETED_ID_TASK, SET_DELETED_MESSAGE_VISIBILITY, SET_DONE_ID_TASK, SET_DONE_MESSAGE_VISIBILITY, TOGGLE_SIDEDEBAR_VISIBILITY } from "./types";
+import { SET_CURRENT_TASK, SET_CREATE_PROJECT, SET_CREATE_TAG, SET_CURRENT_PROJECT_ID, SET_CURRENT_TAB, SET_CURRENT_TAG_ID, SET_DELETED_ID_TASK, SET_DELETED_MESSAGE_VISIBILITY, SET_DONE_ID_TASK, SET_DONE_MESSAGE_VISIBILITY, TOGGLE_SIDEDEBAR_VISIBILITY, SET_DONE_TASK_INDEX, SET_DELETED_TASK_INDEX, SET_UPDATE_PROJECT, SET_UPDATING_ID, SET_UPDATE_TAG } from "./types";
 
 export const toggleSidebarVisibility = (sidebarVisibility: boolean) => (dispatch: AppDispatch) => {
     dispatch({
@@ -36,6 +36,20 @@ export const setDeletedIdTask = (idTask: number) => (dispatch: AppDispatch) => {
     });
 };
 
+export const setDoneTaskIndex = (index: number) => (dispatch: AppDispatch) => {
+    dispatch({
+        type: SET_DONE_TASK_INDEX,
+        payload: index,
+    });
+};
+
+export const setDeletedTaskIndex = (index: number) => (dispatch: AppDispatch) => {
+    dispatch({
+        type: SET_DELETED_TASK_INDEX,
+        payload: index,
+    });
+};
+
 export const setCurrentTab = (currentTab: string) => (dispatch: AppDispatch) => {
     dispatch({
         type: SET_CURRENT_TAB,
@@ -68,7 +82,6 @@ export const setCurrentTaskId = (taskId: number|null) => (dispatch: AppDispatch)
 };
 
 export const setCreateProject = (isCreateProject: boolean) => (dispatch: AppDispatch) => {
-    console.log("setCreateProject")
     dispatch({
         type: SET_CREATE_PROJECT,
         payload: isCreateProject,
@@ -76,9 +89,29 @@ export const setCreateProject = (isCreateProject: boolean) => (dispatch: AppDisp
 };
 
 export const setCreateTag = (isCreateTag: boolean) => (dispatch: AppDispatch) => {
-    console.log("setCreateTag")
     dispatch({
         type: SET_CREATE_TAG,
         payload: isCreateTag,
+    });
+};
+
+export const setUpdateProject = (isUpdateProject: boolean) => (dispatch: AppDispatch) => {
+    dispatch({
+        type: SET_UPDATE_PROJECT,
+        payload: isUpdateProject,
+    });
+};
+
+export const setUpdateTag = (isUpdateTag: boolean) => (dispatch: AppDispatch) => {
+    dispatch({
+        type: SET_UPDATE_TAG,
+        payload: isUpdateTag,
+    });
+};
+
+export const setUpdatingId = (updatingId: number) => (dispatch: AppDispatch) => {
+    dispatch({
+        type: SET_UPDATING_ID,
+        payload: updatingId,
     });
 };

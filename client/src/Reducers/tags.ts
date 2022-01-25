@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { ADD_TAG, GET_TAGS } from "../Actions/types";
+import { ADD_TAG, DELETE_TAG, GET_TAGS, UPDATE_TAG } from "../Actions/types";
 import { Tag } from '../entries';
   
 const initialState: Array<Tag> = [];
@@ -13,25 +13,22 @@ const initialState: Array<Tag> = [];
   
       case GET_TAGS:
         return payload;
-  /*
-      case UPDATE_TUTORIAL:
-        return tutorials.map((tutorial) => {
-          if (tutorial.id === payload.id) {
+
+      case UPDATE_TAG:
+        return tags.map((tag) => {
+          if (tag.id_tag === payload.id_tag) {
             return {
-              ...tutorial,
+              ...tag,
               ...payload,
             };
           } else {
-            return tutorial;
+            return tag;
           }
         });
-  
-      case DELETE_TUTORIAL:
-        return tutorials.filter(({ id }) => id !== payload.id);
-  
-      case DELETE_ALL_TUTORIALS:
-        return [];*/
-  
+
+      case DELETE_TAG:
+        return tags.filter(tag => tag.id_tag !== payload);
+      
       default:
         return tags;
     }

@@ -1,31 +1,36 @@
-import React, { useState } from 'react'
-import * as colors from './../../colors'
+import React, { useEffect, useState } from 'react'
+import * as colors from '../../colors'
 import { useDispatch, useSelector } from 'react-redux';
-import { setCreateTag } from '../../Actions/view';
-import { addTag } from '../../Actions/tags';
+import { setUpdateTag } from '../../Actions/view';
+import { updateTag } from '../../Actions/tags';
 import { RootState } from '../../store';
 import { Plus } from '../Icons';
-import './Main.css'
+import './../Main/Main.css'
+import { Tag } from '../../entries';
 
-export default function CreateTag(props: any) {
+export default function UpdateTag(props: any) {
   const dispatch = useDispatch()
   const view = useSelector(((state: RootState) => state.view))
+  const tags = useSelector((state: RootState) => state.tags)
 
+  const [currentTag, setCurrentTag] = useState<Tag>({id_tag: 0, name: "", color: ""})
   const [inputValue, setInputValue] = useState("")
-  const [color, setColor] = useState(colors.COLOR18)
+  const [color, setColor] = useState("")
   const [colorsVisibility, setColorsVisibility] = useState(false)
 
-  const createTag = () => {
-      dispatch(addTag({id_tag: 0, name: inputValue, color: color}))
-  }
+  useEffect(()=> {
+      setCurrentTag(tags.filter(tag => tag.id_tag === view.updatingId)[0])
+      setInputValue(currentTag ? currentTag.name : "")
+      setColor(currentTag ? currentTag.color : "")
+  }, [currentTag, tags, view.updatingId])
 
   return (
-  <div style={{display: (view.isCreateTag?'block':'none')}}>
+  <div style={{display: (view.isUpdateTag?'block':'none')}}>
     <div className='create_project__background'></div>
     <div className='create_project context-menu'>
         <div className='create_project_title-wrapper'>
-            <p className='create_project__title'>Добавить тег</p>
-            <div className='exit_icon' onClick={()=>{dispatch(setCreateTag(false));setInputValue("");setColor(colors.COLOR18)}}>
+            <p className='create_project__title'>Изменение проекта</p>
+            <div className='exit_icon' onClick={()=>{dispatch(setUpdateTag(false))}}>
                 <Plus {...{fill: "#444", width: "14px", height: "14px", transform: "rotate(45deg)"}}/>
             </div>
         </div>
@@ -55,8 +60,8 @@ export default function CreateTag(props: any) {
             </div>
         </div>
         <div className='create_project_buttons-wrapper'>
-            <button onClick={()=>{dispatch(setCreateTag(false));setInputValue("");setColor(colors.COLOR18)}} className='create_project_cancel_button sidebar__text'>Отмена</button>
-            <button onClick={()=>{createTag();dispatch(setCreateTag(false))}} disabled={inputValue.length<1 && inputValue.replace(/\s/g, '').length > 0} className='create_project_save_button sidebar__text'>Сохранить</button>
+            <button onClick={()=>{dispatch(setUpdateTag(false))}} className='create_project_cancel_button sidebar__text'>Отмена</button>
+            <button onClick={()=>{dispatch(updateTag({id_tag: currentTag.id_tag, name: inputValue, color: color}));dispatch(setUpdateTag(false))}} disabled={inputValue.length<1 && inputValue.replace(/\s/g, '').length > 0} className='create_project_save_button sidebar__text'>Сохранить</button>
         </div>
     </div>
   </div>

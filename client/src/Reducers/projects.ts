@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { ADD_PROJECT, GET_PROJECTS } from "../Actions/types";
+import { ADD_PROJECT, DELETE_PROJECT, GET_PROJECTS, UPDATE_PROJECT } from "../Actions/types";
 import { Project } from '../entries';
   
 const initialState: Array<Project> = [];
@@ -13,24 +13,21 @@ const initialState: Array<Project> = [];
   
       case GET_PROJECTS:
         return payload;
-  /*
-      case UPDATE_TUTORIAL:
-        return tutorials.map((tutorial) => {
-          if (tutorial.id === payload.id) {
+  
+      case UPDATE_PROJECT:
+        return projects.map((project) => {
+          if (project.id_project === payload.id_project) {
             return {
-              ...tutorial,
+              ...project,
               ...payload,
             };
           } else {
-            return tutorial;
+            return project;
           }
         });
   
-      case DELETE_TUTORIAL:
-        return tutorials.filter(({ id }) => id !== payload.id);
-  
-      case DELETE_ALL_TUTORIALS:
-        return [];*/
+      case DELETE_PROJECT:
+        return projects.filter(project => project.id_project !== payload);
   
       default:
         return projects;

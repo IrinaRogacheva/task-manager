@@ -198,15 +198,17 @@
     display: flex;
     align-items: center;
     position: relative;
+    border-bottom: 1px solid #e7e9f1;
+    margin-right: 22px;
 }
 
-.main_task-block_current .main_tasks-list__item
+.main_task-block_current .main_task-wrapper
 {
     background: #e7e9f1;
     cursor: text;
 }
 
-.main_task-block.main_task-block_current:hover  .main_tasks-list__item
+.main_task-block.main_task-block_current:hover  .main_task-wrapper
 {
     background: #e7e9f1;
 }
@@ -248,7 +250,7 @@
 
 .main_tasks-list__item
 {
-    padding: 9px 12px 9px 40px;
+    padding: 12px 12px 12px 40px;
     font-family: Montserrat, sans-serif;
     font-size: 14px;
     color: #444;
@@ -256,19 +258,13 @@
     width: 96%;
     border: none;
     background: transparent;
-    border-bottom: 1px solid #e7e9f1;
     box-sizing: border-box;
     cursor: default;
 }
 
-.main_task-block:hover .main_tasks-list__item
+.main_task-block:hover .main_task-wrapper
 {
     background: rgba(231, 233, 241, 0.4);
-}
-
-.main_tasks-list__item:focus
-{
-    background: #e7e9f1;
 }
 
 .main_context-menu-wrapper
@@ -290,6 +286,32 @@
 .main_task-block:hover .main_context-menu-wrapper
 {
     display: block;
+}
+
+.task_tags
+{
+    display: inline-flex;
+    margin-right: 4px;
+}
+
+.task_tag
+{
+    border-radius: 100px;
+    margin-left: 5px;
+}
+
+.task_tag__name
+{
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 50px;
+    text-align: center;
+    padding: 2px 3px;
+    color: #1e1313;
+    user-select: none;
+    cursor: pointer;
 }
 
 .task-context-menu
@@ -504,4 +526,104 @@
 .create_project_save_button:hover
 {
     background-color: #f8f9ff;
+}
+
+.main_background
+{
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    display: block;
+    background-color: #f1f3fb;
+}
+
+.register_window
+{
+    padding: 15px 25px 20px 25px;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    align-items: center;
+    width: max-content;
+    height: fit-content;
+    border-radius: 1px;
+}
+
+.register__input
+{
+    display: block;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    border-radius: 1px;
+    border: none;
+    border: 1px solid #dfdae3;
+    outline: none;
+    color: #444;
+    width: 300px;
+    padding: 9px 15px;
+    margin: 15px 0;
+    box-sizing: border-box;
+}
+
+.register__input:hover
+{
+    border: 1px solid #f58c74;
+    transition: .2s border ease-in-out;
+}
+
+.register__input:focus
+{
+    border: 1px solid #f58c74;
+    transition: .2s border ease-in-out;
+    background-color: rgba(241, 243, 251, 0.3);
+}
+
+.register_button
+{
+    border: 1px solid #f58c74;
+    border-radius: 1px;
+    color: #f58c74;
+    width: 300px;
+    background-color: #fff;
+    font-weight: 600;
+    padding: 7px 12px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.register_button:hover
+{
+    background-color: rgba(241, 243, 251, 0.3);
+}
+
+.register_caption
+{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    font-size: 13px;
+    padding: 0;
+}
+
+.register_link
+{
+    text-decoration: none;
+    color: #f58c74;
+    border-bottom: 1px solid #fff;
+    margin-left: 3px;
+}
+
+.register_link:hover
+{
+    border-bottom: 1px solid #f58c74;
+}
+
+.register_error
+{
+    color: #dd4b39;
+    font-size: 12px;
+    margin-top: -10px;
 }

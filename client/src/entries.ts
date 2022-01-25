@@ -9,7 +9,7 @@ type Task = {
     priority: number|null,
     id_parent_task: number|null,
     id_project: number|null,
-    id_tag: number|null,
+    id_tags: Array<Tag>,
     id_author: number,
     status: number,
 }
@@ -32,6 +32,8 @@ type View = {
     doneTaskMessageVisibility: boolean,
     idTaskDone: number,
     idTaskDeleted: number,
+    doneTaskIndex: number,
+    deletedTaskIndex: number,
     currentTab: string,
     currentTabProjectId: number,
     currentTabTagId: number,
@@ -39,12 +41,15 @@ type View = {
     countOfIncoming: number,
     countOfToday: number,
     isCreateProject: boolean,
-    isCreateTag: boolean
+    isCreateTag: boolean,
+    isUpdateProject: boolean,
+    isUpdateTag: boolean,
+    updatingId: number,
 }
 
 type App = {
     newTask: Task,
     tasks: Array<Task>,
     projects: Array<Project>,
-    view: View
+    view: View,
 }

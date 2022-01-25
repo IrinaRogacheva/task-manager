@@ -21,8 +21,31 @@ export function TagsList(props: any) {
     const dispatch = useDispatch()
     const tags = useSelector((state: RootState)=>state.tags)
     useEffect(() => {
-        dispatch(getTags())
-    }, []);
+      dispatch(getTags())
+  }, []);
+
+    useEffect(() => {
+        const onClick = (e: MouseEvent) => {
+          const closestElement = (e.target as HTMLElement).closest(`[data-name="tag"]`)
+            const projectContextMenu = document.querySelectorAll(`.tag-context-menu`)
+            if (projectContextMenu) {
+              projectContextMenu.forEach((menu) => {
+                if((menu as HTMLElement).style.display === "block" && !(menu as HTMLElement).contains(e.target as HTMLElement)) {
+                  if(closestElement) {
+                      if ((menu as HTMLElement).dataset.name !== `tag_context_menu_${(closestElement as HTMLElement).dataset.id}`) {
+                          (menu as HTMLElement).style.display = "none"
+                          console.log('onClick at other element than context menu')
+                      } 
+                  } else {
+                    (menu as HTMLElement).style.display = "none"
+                  }
+                }
+              })
+            }
+          }
+          document.addEventListener('click', onClick)
+          return () => document.removeEventListener('click', onClick)
+      }, [])
 
     return (
         <div className='dropdown_list'>

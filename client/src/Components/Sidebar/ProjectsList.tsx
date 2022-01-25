@@ -20,9 +20,33 @@ export function ProjectsList(props: any) {
 
     const dispatch = useDispatch()
     const projects = useSelector((state: RootState)=>state.projects)
+
     useEffect(() => {
-        dispatch(getProjects())
-    }, []);
+      dispatch(getProjects())
+  }, []);
+
+    useEffect(() => {
+      const onClick = (e: MouseEvent) => {
+        const closestElement = (e.target as HTMLElement).closest(`[data-name="project"]`)
+          const projectContextMenu = document.querySelectorAll(`.project-context-menu`)
+          if (projectContextMenu) {
+            projectContextMenu.forEach((menu) => {
+              if((menu as HTMLElement).style.display === "block" && !(menu as HTMLElement).contains(e.target as HTMLElement)) {
+                if(closestElement) {
+                    if ((menu as HTMLElement).dataset.name !== `project_context_menu_${(closestElement as HTMLElement).dataset.id}`) {
+                        (menu as HTMLElement).style.display = "none"
+                        console.log('onClick at other element than context menu')
+                    } 
+                } else {
+                  (menu as HTMLElement).style.display = "none"
+                }
+              }
+            })
+          }
+        }
+        document.addEventListener('click', onClick)
+        return () => document.removeEventListener('click', onClick)
+    }, [])
 
     return (
         <div className='dropdown_list'>

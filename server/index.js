@@ -72,8 +72,16 @@ app.get('/api/get_tasks_of_project/:id', (req, res) => {
 app.get('/api/get_tasks_of_tag/:id', (req, res) => {
     const id = req.params.id
     
-    const query = "SELECT `task`.`id_task`, `name`, `description`, `date`, `time`, `priority`, `id_parent_task`, `id_project`, `id_tag`, `id_author`, `status` FROM `task` INNER JOIN `task_in_tag` ON `task`.`id_task` = `task_in_tag`.`id_task` WHERE `task_in_tag`.`id_tag` = ? AND `status` = 0"
+    const query = "SELECT `task`.* FROM `task` INNER JOIN `task_in_tag` ON `task`.`id_task` = `task_in_tag`.`id_task` WHERE `task_in_tag`.`id_tag` = ? AND `status` = 0"
     db.query(query,[id],(err, result) => {
+        res.send(result)
+    })
+})
+
+app.get('/api/get_tasks_with_tags', (req, res) => {
+    const query = "SELECT `task`.`id_task`, `tag`.* FROM `task` INNER JOIN `task_in_tag` ON `task`.`id_task` = `task_in_tag`.`id_task` INNER JOIN `tag` ON `task_in_tag`.`id_tag` = `tag`.`id_tag` WHERE `status` = 0"
+    db.query(query,(err, result) => {
+        console.log(res)
         res.send(result)
     })
 })
@@ -138,6 +146,14 @@ app.get('/api/get_project/:id', (req, res) => {
     })
 })
 
+app.get('/api/get_project_name/:id', (req, res) => {
+    const id = req.params.id
+    const selectProject = "SELECT `name` FROM `project` WHERE `id_project` = ?"
+    db.query(selectProject, [id],(err, result) => {
+        res.send(result)
+    })
+})
+
 app.get('/api/get_count_of_tasks_in_project/:id', (req, res) => {
     const id = req.params.id
 
@@ -162,6 +178,26 @@ app.post('/api/add_project', (req, res) => {
     const insertTask = "INSERT INTO `project` (`name`, `color`) VALUES (?, ?)"
     db.query(insertTask, [projectName, color],(err, result) => {
         console.log(result)
+        res.send(result)
+    })
+})
+
+app.put('/api/update_project', (req, res) => {
+    const idProject = req.body.id_project
+    const name = req.body.name
+    const color = req.body.color
+
+    const updateTask = "UPDATE `project` SET `name`= ?, `color` = ? WHERE `id_project`=?"
+    db.query(updateTask, [name, color, idProject],(err, result) => {
+        console.log(result)
+        res.send(result)
+    })
+})
+
+app.delete('/api/delete_project/:id', (req, res) => {
+    const id = req.params.id
+    const query = "DELETE FROM `project` WHERE `id_project` = ?"
+    db.query(query,[id],(err, result) => {
         res.send(result)
     })
 })
@@ -205,6 +241,14 @@ app.get('/api/get_tag/:id', (req, res) => {
     })
 })
 
+app.get('/api/get_tag_name/:id', (req, res) => {
+    const id = req.params.id
+    const selectProject = "SELECT `name` FROM `tag` WHERE `id_tag` = ?"
+    db.query(selectProject, [id],(err, result) => {
+        res.send(result)
+    })
+})
+
 app.post('/api/add_tag', (req, res) => {
     const tagName = req.body.name
     const color = req.body.color
@@ -212,6 +256,47 @@ app.post('/api/add_tag', (req, res) => {
     const insertTag = "INSERT INTO `tag` (`name`, `color`) VALUES (?, ?)"
     db.query(insertTag, [tagName, color],(err, result) => {
         console.log(result)
+        res.send(result)
+    })
+})
+
+app.put('/api/update_tag', (req, res) => {
+    const idTag = req.body.id_tag
+    const name = req.body.name
+    const color = req.body.color
+
+    const updateTask = "UPDATE `tag` SET `name`= ?, `color` = ? WHERE `id_tag`=?"
+    db.query(updateTask, [name, color, idTag],(err, result) => {
+        console.log(result)
+        res.send(result)
+    })
+})
+
+app.delete('/api/delete_tag/:id', (req, res) => {
+    const id = req.params.id
+    const query = "DELETE FROM `tag` WHERE `id_tag` = ?"
+    db.query(query,[id],(err, result) => {
+        res.send(result)
+    })
+})
+
+app.post('/api/add_tag_to_task', (req, res) => {
+    const email = req.body.email
+    const password = req.body.password
+    console.log("email: "+email)
+    console.log("password: "+password)
+
+    const insertTask = "INSERT INTO `user` (`email`, `password`) VALUES (?, ?)"
+    db.query(insertTask, [email,password],(err, result) => {
+        console.log(result)
+        res.send(result)
+    })
+})
+
+app.get('/api/get_user_by_email/:email', (req, res) => {
+    const email = req.params.email
+    const selectProject = "SELECT `id_user` FROM `user` WHERE `email` = ?"
+    db.query(selectProject, [email],(err, result) => {
         res.send(result)
     })
 })

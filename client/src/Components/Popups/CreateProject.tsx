@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import * as colors from './../../colors'
+import * as colors from '../../colors'
 import { useDispatch, useSelector } from 'react-redux';
 import { setCreateProject } from '../../Actions/view';
 import { addProject } from '../../Actions/projects';
 import { RootState } from '../../store';
 import { Plus } from '../Icons';
-import './Main.css'
+import './../Main/Main.css'
 
 export default function CreateProject(props: any) {
   const dispatch = useDispatch()

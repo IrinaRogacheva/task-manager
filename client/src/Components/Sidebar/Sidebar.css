@@ -127,6 +127,7 @@ p
 
 .dropdown_list__item-wrapper
 {
+    position: relative;
     cursor: pointer;
     padding: 8px 13px;
     border-radius: 3px;
@@ -153,4 +154,27 @@ p
     border-radius: 50%;
     display: inline-block;
     margin-right: 11px;
+}
+
+.dropdown_list__item-wrapper:hover .main_context-menu-wrapper
+{
+    display: block;
+}
+
+.dropdown_list__item-wrapper:hover .sidebar__number-of-tasks
+{
+    display: none;
+}
+
+.sidebar_context-menu-wrapper
+{
+    margin-right: 7px;
+    top: 7px;
+}
+
+.project-context-menu, .tag-context-menu
+{
+    width: 128px;
+    top: 25px;
+    right: 0;
 }

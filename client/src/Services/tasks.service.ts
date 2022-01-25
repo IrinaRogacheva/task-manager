@@ -56,6 +56,11 @@ class TasksDataService {
   addTagToTask(idTask: number, idTag: number) {
     return http.post(`/add_tag_to_task`, {id_task: idTask, id_tag: idTag});
   }
+
+  getTasksWithTags() {
+    return http.get(`/get_tasks_with_tags`);
+  }
+
 /*
   delete(id) {
     return http.delete(`/tutorials/${id}`);
