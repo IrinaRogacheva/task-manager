@@ -1,4 +1,4 @@
-export type { Task, Project, Tag, View, App }
+export type { Task, Project, Tag, View, App, User }
 
 type Task = {
     id_task: number,
@@ -52,4 +52,10 @@ type App = {
     tasks: Array<Task>,
     projects: Array<Project>,
     view: View,
+}
+
+type User = {
+    id_user: number,
+    loggedIn: boolean,
+    email: string
 }

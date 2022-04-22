@@ -3,9 +3,9 @@ import TagsDataService from "../Services/tags.service";
 import { AppDispatch } from "../store";
 import { Tag} from "../entries";
 
-export const getTags = () => async (dispatch: AppDispatch) => {
+export const getTags = (idUser: number) => async (dispatch: AppDispatch) => {
     try {
-        const res = await TagsDataService.getTags();
+        const res = await TagsDataService.getTags(idUser);
 
         dispatch({
             type: GET_TAGS,
@@ -16,9 +16,10 @@ export const getTags = () => async (dispatch: AppDispatch) => {
     }
 };
 
-export const addTag = (tag: Tag) => async (dispatch: AppDispatch) => {
+export const addTag = (tag: Tag, idUser: number) => async (dispatch: AppDispatch) => {
     try {
         const res = await TagsDataService.addTag(tag);
+        await TagsDataService.addUserInTag(idUser, res.data.insertId);
         const insertedTag = await TagsDataService.getById(res.data.insertId);
   
         dispatch({

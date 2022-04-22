@@ -15,8 +15,9 @@ export default function CreateProject(props: any) {
   const [color, setColor] = useState(colors.COLOR18)
   const [colorsVisibility, setColorsVisibility] = useState(false)
 
+  const idUser = useSelector(((state: RootState) => state.user.id_user))
   const createProject = () => {
-      dispatch(addProject({id_project: 0, name: inputValue, color: color}))
+      dispatch(addProject({id_project: 0, name: inputValue, color: color}, idUser))
   }
 
   return (

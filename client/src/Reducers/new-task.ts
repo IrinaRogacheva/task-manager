@@ -1,7 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { SET_PRIORITY, SET_PROJECT, ADD_TAG_TO_NEW_TASK, SET_TASK_DATE, SET_TASK_NAME, CLEAR_TAGS_LIST, DELETE_TAG_TO_NEW_TASK } from "../Actions/types";
+import { SET_PRIORITY, SET_PROJECT, ADD_TAG_TO_NEW_TASK, SET_TASK_DATE, SET_TASK_NAME, CLEAR_TAGS_LIST, DELETE_TAG_TO_NEW_TASK, SET_AUTHOR_ID } from "../Actions/types";
 import { Task } from '../entries';
-  
+
 const initialState: Task = {
     id_task: 0,
     name: "",
@@ -20,6 +20,9 @@ const initialState: Task = {
     const { type, payload } = action;
   
     switch (type) {
+      case SET_AUTHOR_ID:
+        return {...task, id_author: payload};
+
       case SET_PRIORITY:
         return {...task, priority: payload};
 

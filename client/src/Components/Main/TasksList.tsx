@@ -9,24 +9,25 @@ export default function TasksList(props: any) {
   const dispatch = useDispatch();
   const tasksList = useSelector((state: RootState) => state.tasks)
   const view = useSelector((state: RootState) => state.view)
+  const idAuthor = useSelector((state: RootState) => state.user.id_user)
 
   useEffect(() => {
     if (view.currentTab === "incoming") {
-      dispatch(getIncomingTasks());
+      dispatch(getIncomingTasks(idAuthor));
     } else if (view.currentTab === "done")
     {
-      dispatch(getDoneTasks())
+      dispatch(getDoneTasks(idAuthor))
     } else if (view.currentTab === "today")
     {
-      dispatch(getTodayTasks())
+      dispatch(getTodayTasks(idAuthor))
     } else if (view.currentTab === "deleted") {
-      dispatch(getDeletedTasks())
+      dispatch(getDeletedTasks(idAuthor))
     }
     else if (view.currentTab === "project") {
-      dispatch(getTasksOfProject(view.currentTabProjectId))
+      dispatch(getTasksOfProject(view.currentTabProjectId, idAuthor))
     }
     else if (view.currentTab === "tag") {
-      dispatch(getTasksOfTag(view.currentTabTagId))
+      dispatch(getTasksOfTag(view.currentTabTagId, idAuthor))
     }
   }, [dispatch, view.currentTab, view.currentTabProjectId, view.currentTabTagId]);
 
@@ -52,11 +53,14 @@ export default function TasksList(props: any) {
       document.addEventListener('click', onClick)
       return () => document.removeEventListener('click', onClick)
   }, [])
-
+  const projects = useSelector((state: RootState) => state.projects)
   return (
     <ul className='main_tasks-list'>
       {tasksList.map((task, index)=>{
-        return <Task key={task.id_task} {...{task: task, task_index: index}}/>
+        return <div key={task.id_task} style={{position: "relative"}}>    
+        <div style={{width: "3px", background: `#${(task.id_project !== null)?(projects.find(el => el.id_project === task.id_project)?.color):"transparent"}`, height: "40px" ,position: "absolute"}}></div>
+        <Task {...{task: task, task_index: index}}/>
+        </div>
       })}
     </ul>
   );

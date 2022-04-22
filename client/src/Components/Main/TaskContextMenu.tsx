@@ -4,11 +4,12 @@ import { updateTaskStatus } from '../../Actions/tasks';
 import { setDeletedIdTask, setDeletedMesageVisibility, setDeletedTaskIndex } from '../../Actions/view';
 import { ContextMenuIcon, TrashCan } from '../Icons';
 import './Main.css'
+import { PrioritiesToUpdate } from './PrioritiesToUpdate';
 
 export function TaskContextMenu(props: any) {
   const dispatch = useDispatch()
   const setTaskDeleted = () => {
-    dispatch(updateTaskStatus(props.id_task, {status: 2}))
+    dispatch(updateTaskStatus(props.id_task, props.tags, {status: 2}))
     dispatch(setDeletedIdTask(props.id_task))
     dispatch(setDeletedMesageVisibility(true))
     setTimeout(()=>dispatch(setDeletedMesageVisibility(false)), 4000)
@@ -41,6 +42,7 @@ export function TaskContextMenu(props: any) {
           {contextMenuIcon}
         </div>
         <div data-name={`task_context_menu_${props.id_task}`} className="task-context-menu context-menu" style={{display: 'none'}} tabIndex={0}>
+          <PrioritiesToUpdate {...{priority: props.priority, id_task: props.id_task, tags: props.tags}}/>
           <button className='task-context-menu__button' onClick={()=>{setTaskDeleted();setDeletedTaskIndex(props.task_index)}}>
             <TrashCan {...{fill: "#a3a3a3", width: "17px", height: "15px"}}/>
             <p className="sidebar__text task-context-menu__text">Удалить</p>

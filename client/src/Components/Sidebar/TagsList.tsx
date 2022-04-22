@@ -20,8 +20,9 @@ export function TagsList(props: any) {
 
     const dispatch = useDispatch()
     const tags = useSelector((state: RootState)=>state.tags)
+    const idUser = useSelector((state: RootState)=>state.user.id_user)
     useEffect(() => {
-      dispatch(getTags())
+      dispatch(getTags(idUser))
   }, []);
 
     useEffect(() => {

@@ -1,11 +1,18 @@
 import { Tag } from "../entries";
 import { AppDispatch } from "../store";
-import { SET_PRIORITY, SET_PROJECT, ADD_TAG_TO_NEW_TASK, SET_TASK_DATE, SET_TASK_NAME, CLEAR_TAGS_LIST, DELETE_TAG_TO_NEW_TASK } from "./types";
+import { SET_PRIORITY, SET_PROJECT, ADD_TAG_TO_NEW_TASK, SET_TASK_DATE, SET_TASK_NAME, CLEAR_TAGS_LIST, DELETE_TAG_TO_NEW_TASK, SET_AUTHOR_ID } from "./types";
 
 export const setPriority = (priority: number) => (dispatch: AppDispatch) => {
     dispatch({
         type: SET_PRIORITY,
         payload: priority,
+    });
+};
+
+export const setAuthorId = (idAuthor: number) => (dispatch: AppDispatch) => {
+    dispatch({
+        type: SET_AUTHOR_ID,
+        payload: idAuthor,
     });
 };
 

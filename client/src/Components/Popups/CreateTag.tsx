@@ -15,8 +15,9 @@ export default function CreateTag(props: any) {
   const [color, setColor] = useState(colors.COLOR18)
   const [colorsVisibility, setColorsVisibility] = useState(false)
 
+  const idUser = useSelector(((state: RootState) => state.user.id_user))
   const createTag = () => {
-      dispatch(addTag({id_tag: 0, name: inputValue, color: color}))
+      dispatch(addTag({id_tag: 0, name: inputValue, color: color}, idUser))
   }
 
   return (

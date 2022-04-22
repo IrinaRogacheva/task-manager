@@ -1,30 +1,31 @@
-import React from 'react';
-import './App.css';
-import './Preloader.css'
-import {Header} from './Components/Header/Header'
-import { Sidebar } from './Components/Sidebar/Sidebar';
-import { Main } from './Components/Main/Main';
-import DoneTaskMessage from './Components/Main/DoneTaskMessage';
-import DeletedTaskMessage from './Components/Main/DeletedTaskMessage';
-import CreateProject from './Components/Popups/CreateProject';
-import CreateTag from './Components/Popups/CreateTag';
-import UpdateProject from './Components/Popups/UpdateProject';
-import UpdateTag from './Components/Popups/UpdateTag';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
+import Application from './Components/Main/Application';
+import Login from './Components/Users/Login';
+import Register from './Components/Users/Register';
+import RequireAuth from './Components/Users/RequireAuth';
+import { RootState } from './store';
+import { loginUserByCoolie } from './Actions/user';
+
 function App() {
-  return (
-            <div className="App">
-              <Header/>
-              <div style={{display: 'flex', height: 'calc(100% - 49px)'}}>
-                <Sidebar/>
-                <Main/>
-              </div>
-              <DoneTaskMessage/>
-              <DeletedTaskMessage/>
-              <CreateProject/>
-              <CreateTag/>
-              <UpdateProject/>
-              <UpdateTag/>
-            </div>
+  const user = useSelector((state: RootState) => state.user)
+  const checkLoggedIn = () => {
+    console.log("loggedIn " + user.loggedIn)
+    console.log("user id " + user.id_user)
+  }
+  checkLoggedIn()
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(loginUserByCoolie())
+  }, []);
+
+  return (<Routes>
+    <Route path="/" element={<RequireAuth ><Application /></RequireAuth>}/>
+    <Route path="/register" element={<Register />} />
+    <Route path="/login" element={<Login />} />
+  </Routes>
   );
 }
 

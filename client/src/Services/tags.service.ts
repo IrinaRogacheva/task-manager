@@ -2,8 +2,8 @@ import { Tag } from "../entries";
 import http from "../http-common";
 
 class TagsDataService {
-  getTags() {
-    return http.get('/get_tags');
+  getTags(idUser: number) {
+    return http.get(`/get_tags/${idUser}`);
   }
 
   getById(id: number) {
@@ -20,6 +20,10 @@ class TagsDataService {
 
   addTag(tag: Tag) {
     return http.post("/add_tag", tag);
+  }
+
+  addUserInTag(idUser: number, idTag: number) {
+    return http.post("/add_user_in_tag", {id_user: idUser, id_tag: idTag});
   }
 
   deleteTag(idTag: number) {

@@ -100,10 +100,11 @@ export default function NewTaskInput(props: any) {
     }
   }, [view.currentTab, view.currentTabTagId, view.currentTabProjectId]);
 
+  const idAuthor = useSelector((state: RootState) => state.user.id_user)
   useEffect(() => {
     if (newTask.name.length > 0 && newTask.name.replace(/\s/g, '').length > 0)
     {
-      dispatch(addTask(newTask))
+      dispatch(addTask(newTask, idAuthor))
       dispatch(setPriority(0))
       dispatch(setTaskName(""))
       dispatch(setTaskProject(null))
@@ -130,12 +131,6 @@ export default function NewTaskInput(props: any) {
         </div>
         <input ref={inputRef} onKeyDown={(e)=>{if (e.key === 'Enter') {submitReview()}}} className='main__input' autoComplete="off" type='text' onFocus={()=>{setIsPlaceholderVisible(true);setIsAddingTaskModeOn(true)}} onBlur={(e)=>{checkIsAddingTaskModeOn(e as FocusEvent); checkIsPlaceholderVisible((e as FocusEvent))}}/>
         <div className='main_input-condiments' style={{display: (isAddingTaskModeOn?'flex':'none')}}>
-          <div ref={calendarButtonRef} tabIndex={0} onClick={()=>{setIsCalendarVisible(!isCalendarVisible);setIsCondimentsVisible(false)}} className='input-icon main__input-icon_right-border'>
-            <AddDate/>
-          </div>
-          <div ref={calendarRef}>
-            <Calendar {...{style: {display: (isCalendarVisible?'block':'none')}, attr: {tabIndex: 0}}}/>
-          </div>
           <div ref={condimentsButtonRef} tabIndex={0} onClick={()=>{setIsCondimentsVisible(!isCondimentsVisible);setIsCalendarVisible(false)}} className='input-icon input-icon__arrow'>
             <Arrow {...{fill: "#f58c74", width: "13px", height: "13px"}}/>
           </div>

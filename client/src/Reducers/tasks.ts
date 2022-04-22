@@ -1,7 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { ADD_TASK, CLEAR_TRASH, GET_TASKS, UPDATE_TASK } from "../Actions/types";
 import { Task } from '../entries';
-  
+
 const initialState: Array<Task> = [];
 
   function tasksReducer(tasks = initialState, action: PayloadAction<any>): Array<Task> {
@@ -22,9 +22,8 @@ const initialState: Array<Task> = [];
         }
         return tasks
           .map((task) => {
-          if (task.id_task === payload.id) {
+          if (task.id_task === payload.id_task) {
             return {
-              ...task,
               ...payload,
             };
           } else {

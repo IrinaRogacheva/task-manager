@@ -7,6 +7,7 @@ import NewTaskInput from './NewTaskInput';
 import TasksList from './TasksList';
 import ProjectsDataService from "../../Services/projects.service";
 import TagsDataService from "../../Services/tags.service";
+import { SortWindow } from './SortWindow';
 
 export function Main(props: any) {
   const [title, setTitle] = useState("")
@@ -29,14 +30,20 @@ export function Main(props: any) {
   }
 
   const view = useSelector(((state: RootState) => state.view))
+  const idAuthor = useSelector(((state: RootState) => state.user.id_user))
+  const [sortWindow, setSortWindow] = useState(false)
   const dispatch = useDispatch()
     return (
         <div className="main">
           <div className='main_title_wrapper'>
             <p className='main__title'>{(view.currentTab==="incoming")?"Входящие":(view.currentTab==="today"?"Сегодня":(view.currentTab==="next_week"?"Следующие 7 дней":(view.currentTab==="done"?"Выполнено":(view.currentTab==="deleted"?"Корзина":(view.currentTab==="project"?getNameOfCurrentProject(view.currentTabProjectId):(view.currentTab==="tag"?getNameOfCurrentTag(view.currentTabTagId):""))))))}</p>
+            <div style={{position: 'relative'}}>
             {(view.currentTab === "deleted") &&
-            <button onClick={()=>{dispatch(clearTrash())}} title='Очистить корзину' className='clear-trash-icon'></button>
+            <button onClick={()=>{dispatch(clearTrash(idAuthor))}} title='Очистить корзину' className='clear-trash-icon'></button>
             }
+            <button onClick={()=>{setSortWindow(!sortWindow)}} className='sort-tasks-icon'></button>
+            <SortWindow {...{sortWindow: sortWindow, setSortWindow: setSortWindow}}/>
+            </div>
           </div>
           {(view.currentTab !== "done" && view.currentTab !== "deleted") &&
           <NewTaskInput/>

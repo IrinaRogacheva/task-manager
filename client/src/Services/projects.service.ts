@@ -2,8 +2,8 @@ import { Project } from "../entries";
 import http from "../http-common";
 
 class ProjectsDataService {
-  getProjects() {
-    return http.get('/get_projects');
+  getProjects(idUser: number) {
+    return http.get(`/get_projects/${idUser}`);
   }
 
   getById(id: number) {
@@ -20,6 +20,10 @@ class ProjectsDataService {
 
   addProject(task: Project) {
     return http.post("/add_project", task);
+  }
+
+  addUserInProject(idUser: number, idProject: number) {
+    return http.post("/add_user_in_project", {id_user: idUser, id_project: idProject});
   }
 
   deleteProject(idProject: number) {

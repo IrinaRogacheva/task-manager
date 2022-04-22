@@ -20,9 +20,10 @@ export function ProjectsList(props: any) {
 
     const dispatch = useDispatch()
     const projects = useSelector((state: RootState)=>state.projects)
+    const idUser = useSelector((state: RootState)=>state.user.id_user)
 
     useEffect(() => {
-      dispatch(getProjects())
+      dispatch(getProjects(idUser))
   }, []);
 
     useEffect(() => {

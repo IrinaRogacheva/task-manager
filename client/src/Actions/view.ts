@@ -1,5 +1,6 @@
+import { Task } from "../entries";
 import { AppDispatch } from "../store";
-import { SET_CURRENT_TASK, SET_CREATE_PROJECT, SET_CREATE_TAG, SET_CURRENT_PROJECT_ID, SET_CURRENT_TAB, SET_CURRENT_TAG_ID, SET_DELETED_ID_TASK, SET_DELETED_MESSAGE_VISIBILITY, SET_DONE_ID_TASK, SET_DONE_MESSAGE_VISIBILITY, TOGGLE_SIDEDEBAR_VISIBILITY, SET_DONE_TASK_INDEX, SET_DELETED_TASK_INDEX, SET_UPDATE_PROJECT, SET_UPDATING_ID, SET_UPDATE_TAG } from "./types";
+import { SET_CURRENT_TASK, SET_CREATE_PROJECT, SET_CREATE_TAG, SET_CURRENT_PROJECT_ID, SET_CURRENT_TAB, SET_CURRENT_TAG_ID, SET_DELETED_ID_TASK, SET_DELETED_MESSAGE_VISIBILITY, SET_DONE_ID_TASK, SET_DONE_MESSAGE_VISIBILITY, TOGGLE_SIDEDEBAR_VISIBILITY, SET_DONE_TASK_INDEX, SET_DELETED_TASK_INDEX, SET_UPDATE_PROJECT, SET_UPDATING_ID, SET_UPDATE_TAG, SET_CURRENT_TASK_TAB } from "./types";
 
 export const toggleSidebarVisibility = (sidebarVisibility: boolean) => (dispatch: AppDispatch) => {
     dispatch({
@@ -11,14 +12,14 @@ export const toggleSidebarVisibility = (sidebarVisibility: boolean) => (dispatch
 export const setDoneMesageVisibility = (messageVisibility: boolean) => (dispatch: AppDispatch) => {
     dispatch({
         type: SET_DONE_MESSAGE_VISIBILITY,
-        payload: messageVisibility,
+        payload: false,
     });
 };
 
 export const setDeletedMesageVisibility = (messageVisibility: boolean) => (dispatch: AppDispatch) => {
     dispatch({
         type: SET_DELETED_MESSAGE_VISIBILITY,
-        payload: messageVisibility,
+        payload: false,
     });
 };
 

@@ -3,9 +3,9 @@ import ProjectsDataService from "../Services/projects.service";
 import { AppDispatch } from "../store";
 import { Project} from "../entries";
 
-export const getProjects = () => async (dispatch: AppDispatch) => {
+export const getProjects = (idUser: number) => async (dispatch: AppDispatch) => {
     try {
-        const res = await ProjectsDataService.getProjects();
+        const res = await ProjectsDataService.getProjects(idUser);
 
         dispatch({
             type: GET_PROJECTS,
@@ -16,9 +16,10 @@ export const getProjects = () => async (dispatch: AppDispatch) => {
     }
 };
 
-export const addProject = (project: Project) => async (dispatch: AppDispatch) => {
+export const addProject = (project: Project, idUser: number) => async (dispatch: AppDispatch) => {
     try {
         const res = await ProjectsDataService.addProject(project);
+        await ProjectsDataService.addUserInProject(idUser, res.data.insertId);
         const insertedProject = await ProjectsDataService.getById(res.data.insertId);
   
         dispatch({

@@ -1,0 +1,120 @@
+.current_task
+{
+    background-color: rgba(241,243,251,0.5);
+    width: 28%;
+    border-left: 1px solid #e7e9f1;
+    display: flex;
+    flex-direction: column;
+}
+
+.current_task_middle_block
+{
+    padding: 25px;
+}
+
+.current_task__input
+{
+    padding: 12px 15px;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #444;
+    outline: none;
+    width: 96%;
+    border: none;
+    background: transparent;
+    box-sizing: border-box;
+}
+
+.current_task__description
+{
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    color: #444;
+    width: 288px;
+    height: 350px;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 15px;
+    background-color: transparent;
+}
+
+.tags_list
+{
+    display: inline-flex;
+    margin-right: 4px;
+    position: relative;
+}
+
+.delete_tag
+{
+    border: none;
+    background: url(./../../Icons/cross.png) no-repeat;
+    background-size: 85%;
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 9px;
+    right: -8px;
+}
+
+.add_tag
+{
+    border: none;
+    background: url(./../../Icons/cross.png) no-repeat;
+    background-size: 85%;
+    width: 19px;
+    height: 19px;
+    cursor: pointer;
+    transform: rotate(45deg);
+    margin-left: 15px;
+}
+
+.add_tag:disabled
+{
+    cursor: not-allowed;
+}
+
+.current_task__bottom_block
+{
+    padding: 10px 5px;
+    border-top: 1px solid #D3D5DD;
+    margin: auto 5px 0 5px;
+    position: relative;
+}
+
+.current_task__project_button
+{
+    border: none;
+    cursor: pointer;
+    font-family: Montserrat, sans-serif;
+    font-size: 13px;
+    color: #444;
+    background: transparent;
+    padding: 7px 9px;
+    border-radius: 1px;
+}
+
+.projects_list
+ {
+    width: 150px;
+    bottom: 45px;
+    left: 5px;
+}
+
+.projects_list .new_task_project_current
+{
+    background-color: #F1E9FB;
+}
+
+.projects_list .task-context-menu__button:hover
+{
+    background: transparent;
+}
+
+.projects_list .new_task_project_current:hover
+{
+    background-color: #F1E9FB;
+}

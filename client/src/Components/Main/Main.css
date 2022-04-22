@@ -1,7 +1,7 @@
 .main
 {
     background-color: #f8f9ff;
-    width: 50%;
+    width: 45%;
     padding: 20px 30px;
 }
 
@@ -30,6 +30,24 @@
     height: 27px;
     cursor: pointer;
     margin-right: 25px;
+}
+
+.sort-tasks-icon
+{
+    border: none;
+    background: url(./../../Icons/sort.png) no-repeat;
+    background-size: 85%;
+    width: 28px;
+    height: 25px;
+    cursor: pointer;
+    margin-right: 25px;
+}
+
+.sort-menu
+{
+    width: 140px;
+    top: 30px;
+    right: 20px;
 }
 
 .main_input-wraper
@@ -189,7 +207,7 @@
     list-style-type: none;
     padding: 0;
     overflow-y: scroll;
-    height: 77vh;
+    height: 68vh;
     padding-right: 5px;
 }
 
@@ -316,10 +334,10 @@
 
 .task-context-menu
 {
-    width: 210px;
-    height: 300px;   
+    width: 210px;  
     top: 35px;
     right: -5px;
+    padding: 7px 0 0;
 }
 
 .task-context-menu__button
@@ -581,7 +599,7 @@
     background-color: rgba(241, 243, 251, 0.3);
 }
 
-.register_button
+.register_window .register_button
 {
     border: 1px solid #f58c74;
     border-radius: 1px;
@@ -594,12 +612,12 @@
     margin-top: 10px;
 }
 
-.register_button:hover
+.register_window .register_button:hover
 {
     background-color: rgba(241, 243, 251, 0.3);
 }
 
-.register_caption
+.register_window .register_caption
 {
     margin-top: 30px;
     display: flex;
@@ -621,9 +639,36 @@
     border-bottom: 1px solid #f58c74;
 }
 
-.register_error
+.register_window .register_error
 {
     color: #dd4b39;
     font-size: 12px;
     margin-top: -10px;
+}
+
+.profile-menu .register_error
+{
+    color: #dd4b39;
+    font-size: 12px;
+    padding: 0;
+}
+
+.profile-menu
+{
+    width: 230px;
+    top: 45px;
+    right: 30px;
+    padding: 7px 15px;
+}
+
+.email__input
+{
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    color: #444;
+    outline: none;
+    width: 96%;
+    border: none;
+    background: transparent;
+    box-sizing: border-box;
 }

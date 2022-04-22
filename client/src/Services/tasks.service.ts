@@ -3,25 +3,25 @@ import { Task } from "../entries";
 import http from "../http-common";
 
 class TasksDataService {
-  getAll() {
-    return http.get('/get_tasks');
+  getAll(idAuthor: number) {
+    return http.get(`/get_tasks/${idAuthor}`);
   }
 
-  getCountOfIncoming() {
-    return http.get('/get_count_of_incoming');
+  getCountOfIncoming(idAuthor: number) {
+    return http.get(`/get_count_of_incoming/${idAuthor}`);
   }
 
-  getCountOfToday() {
+  getCountOfToday(idAuthor: number) {
     const date = moment().format('YYYY-MM-DD')
-    return http.get(`/get_count_of_today/${date}`);
+    return http.get(`/get_count_of_today/${date}/${idAuthor}`);
   }
 
-  getDoneTasks() {
-    return http.get('/get_done_tasks');
+  getDoneTasks(idAuthor: number) {
+    return http.get(`/get_done_tasks/${idAuthor}`);
   }
 
-  getDeletedTasks() {
-    return http.get('/get_deleted_tasks');
+  getDeletedTasks(idAuthor: number) {
+    return http.get(`/get_deleted_tasks/${idAuthor}`);
   }
 
   getTasksOfProject(projectId: number) {
@@ -32,9 +32,9 @@ class TasksDataService {
     return http.get(`/get_tasks_of_tag/${tagId}`);
   }
 
-  getTodayTasks() {
+  getTodayTasks(idAuthor: number) {
     const date = moment().format('YYYY-MM-DD')
-    return http.get(`/get_today_tasks/${date}`);
+    return http.get(`/get_today_tasks/${date}/${idAuthor}`);
   }
 
   getById(id:number) {
@@ -49,6 +49,18 @@ class TasksDataService {
     return http.put(`/update_task_status/${id}`, data);
   }
 
+  updatePriority(id: number, data: any) {
+    return http.put(`/update_task_priority/${id}`, data);
+  }
+
+  updateDescription(id: number, data: any) {
+    return http.put(`/update_task_description/${id}`, data);
+  }
+
+  updateProject(id: number, data: any) {
+    return http.put(`/update_task_project/${id}`, data);
+  }
+
   updateName(id: number, data: any) {
     return http.put(`/update_task_name/${id}`, data);
   }
@@ -57,18 +69,22 @@ class TasksDataService {
     return http.post(`/add_tag_to_task`, {id_task: idTask, id_tag: idTag});
   }
 
-  getTasksWithTags() {
-    return http.get(`/get_tasks_with_tags`);
+  deleteTagFromTask(idTask: number, idTag: number) {
+    return http.delete(`/delete_tag_from_task/${idTask}/${idTag}`);
   }
 
-/*
-  delete(id) {
-    return http.delete(`/tutorials/${id}`);
+  getTasksWithTags(idAuthor: number) {
+    return http.get(`/get_tasks_with_tags/${idAuthor}`);
   }
-*/
-  clearTrash() {
-    return http.delete(`/delete_tasks`);
+
+  clearTrash(idAuthor: number) {
+    return http.delete(`/delete_tasks/${idAuthor}`);
   }
+
+  searchTask(idUser: number, findBy: string) {
+    return http.get(`/search_tasks/${findBy}/${idUser}`);
+  }
+
 /*
   findByTitle(title) {
     return http.get(`/tutorials?title=${title}`);

@@ -13,15 +13,16 @@ export function Sidebar(props: any) {
     const [countOfToday, setCountOfToday] = useState(0)
     const view = useSelector(((state: RootState) => state.view))
     const tasks = useSelector(((state: RootState) => state.tasks))
+    const idAuthor = useSelector(((state: RootState) => state.user.id_user))
     const dispatch = useDispatch()
 
     useEffect(() => {
         async function getCountOfIncoming() {
-            const res = await TasksDataService.getCountOfIncoming()
+            const res = await TasksDataService.getCountOfIncoming(idAuthor)
             setCountOfIncoming(res.data[0].countOfIncoming)
         }
         async function getCountOfToday() {
-            const res = await TasksDataService.getCountOfToday()
+            const res = await TasksDataService.getCountOfToday(idAuthor)
             setCountOfToday(res.data[0].countOfToday)
         }
         getCountOfIncoming()
@@ -39,11 +40,6 @@ export function Sidebar(props: any) {
                 <DayOfCalendarIcon/>
                 <p className="sidebar__text">Сегодня</p>
                 <p className="sidebar__number-of-tasks">{countOfToday}</p>
-            </button>
-            <button onClick={()=>{dispatch(setCurrentTab("next_week"))}} className={`sidebar__button ${(view.currentTab === "next_week")?"sidebar__button_current":""}`}>
-                <CalendarIcon/>
-                <p className="sidebar__text">Следующие 7 дней</p>
-                <p className="sidebar__number-of-tasks">{0}</p>
             </button>
             <div className="dropdown-lists">
                 <ProjectsList {...{isChangingModeOn: true}}/>

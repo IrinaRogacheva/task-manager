@@ -14,6 +14,7 @@ export const GET_TAGS = 'GET_TAGS'
 export const DELETE_TAG = 'DELETE_TAG'
 export const UPDATE_TAG = 'UPDATE_TAG'
 
+export const SET_AUTHOR_ID = 'SET_AUTHOR_ID'
 export const SET_PRIORITY = 'SET_PRIORITY'
 export const SET_TASK_NAME = 'SET_TASK_NAME'
 export const SET_TASK_DATE = 'SET_TASK_DATE'
@@ -39,3 +40,9 @@ export const SET_CREATE_TAG = 'SET_CREATE_TAG'
 export const SET_UPDATE_PROJECT = 'SET_UPDATE_PROJECT'
 export const SET_UPDATE_TAG = 'SET_UPDATE_TAG'
 export const SET_UPDATING_ID = 'SET_UPDATING_ID'
+
+export const SET_CURRENT_TASK_TAB = 'SET_CURRENT_TASK_TAB'
+export const UPDATE_CURRENT_TASK = 'UPDATE_CURRENT_TASK'
+
+export const LOGIN = 'LOGIN'
+export const CHANGE_EMAIL = 'CHANGE_EMAIL'
