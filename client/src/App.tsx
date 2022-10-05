@@ -6,7 +6,9 @@ import Login from './Components/Users/Login';
 import Register from './Components/Users/Register';
 import RequireAuth from './Components/Users/RequireAuth';
 import { RootState } from './store';
-import { loginUserByCoolie } from './Actions/user';
+import { loginUserByCookie } from './Actions/user';
+import RequireAuthToApp from './Components/Users/RequireAuthToApp';
+import { setAuthorId } from './Actions/new-task';
 
 function App() {
   const user = useSelector((state: RootState) => state.user)
@@ -18,13 +20,19 @@ function App() {
 
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(loginUserByCoolie())
+    dispatch(loginUserByCookie())
   }, []);
+
+  useEffect(() => {
+    if (user.loggedIn) {
+      dispatch(setAuthorId(user.id_user))
+    }
+  }, [user.loggedIn]);
 
   return (<Routes>
     <Route path="/" element={<RequireAuth ><Application /></RequireAuth>}/>
     <Route path="/register" element={<Register />} />
-    <Route path="/login" element={<Login />} />
+    <Route path="/login" element={/*<RequireAuthToApp >*/<Login />/*</RequireAuthToApp>*/} />
   </Routes>
   );
 }

@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { SET_CREATE_PROJECT, SET_CREATE_TAG, SET_CURRENT_PROJECT_ID, SET_CURRENT_TAB, SET_CURRENT_TAG_ID, SET_CURRENT_TASK, SET_CURRENT_TASK_TAB, SET_DELETED_ID_TASK, SET_DELETED_MESSAGE_VISIBILITY, SET_DELETED_TASK_INDEX, SET_DONE_ID_TASK, SET_DONE_MESSAGE_VISIBILITY, SET_DONE_TASK_INDEX, SET_UPDATE_PROJECT, SET_UPDATE_TAG, SET_UPDATING_ID, TOGGLE_SIDEDEBAR_VISIBILITY } from "../Actions/types";
+import { ADD_SELECTED_TASK, CLEAR_TASK_SELECTION, DELETE_SELECTED_TASK, SET_CREATE_PROJECT, SET_CREATE_TAG, SET_CURRENT_PROJECT_ID, SET_CURRENT_TAB, SET_CURRENT_TAG_ID, SET_CURRENT_TASK, SET_DELETED_ID_TASK, SET_DELETED_MESSAGE_VISIBILITY, SET_DELETED_TASK_INDEX, SET_DELETED_TASK_TAGS_ID, SET_DONE_ID_TASK, SET_DONE_MESSAGE_VISIBILITY, SET_DONE_TASK_INDEX, SET_DONE_TASK_TAGS_ID, SET_IS_MULTIPLE_TASK_SELECTION, SET_UPDATE_PROJECT, SET_UPDATE_TAG, SET_UPDATING_ID, TOGGLE_SIDEDEBAR_VISIBILITY } from "../Actions/types";
 import { View } from '../entries';
 
 const initialState: View = {
@@ -8,8 +8,10 @@ const initialState: View = {
     deletedTaskMessageVisibility: false,
     idTaskDone: 0,
     idTaskDeleted: 0,
-    doneTaskIndex: 0,
-    deletedTaskIndex: 0,
+  doneTaskIndex: 0,
+  deletedTaskIndex: 0,
+  doneTaskTags: [],
+  deletedTaskTags: [],
     currentTab: "incoming",
     currentTabProjectId: 0,
     currentTabTagId: 0,
@@ -20,7 +22,9 @@ const initialState: View = {
     isCreateTag: false,
     isUpdateProject: false,
     isUpdateTag: false,
-    updatingId: 0,
+  updatingId: 0,
+  isMultipleTaskSelection: false,
+  selectedTasks: []
   };
 
   function viewReducer(view = initialState, action: PayloadAction<any>): View {
@@ -28,8 +32,8 @@ const initialState: View = {
   
     switch (type) {
       case TOGGLE_SIDEDEBAR_VISIBILITY:
-        return {...view, sidebarVisibility: payload};
-
+        return { ...view, sidebarVisibility: payload };
+      
       case SET_DONE_MESSAGE_VISIBILITY:
         return {...view, doneTaskMessageVisibility: payload};
 
@@ -48,6 +52,12 @@ const initialState: View = {
       case SET_DELETED_TASK_INDEX:
         return {...view, deletedTaskIndex: payload};
 
+      case SET_DONE_TASK_TAGS_ID:
+        return { ...view, doneTaskTags: payload };
+
+      case SET_DELETED_TASK_TAGS_ID:
+        return { ...view, deletedTaskTags: payload };
+      
       case SET_CURRENT_TAB:
         return {...view, currentTab: payload};
 
@@ -73,8 +83,23 @@ const initialState: View = {
         return {...view, isUpdateTag: payload}
 
       case SET_UPDATING_ID:
-        return {...view, updatingId: payload};
+        return { ...view, updatingId: payload };
       
+      case SET_IS_MULTIPLE_TASK_SELECTION:
+        return { ...view, isMultipleTaskSelection: payload };
+      
+      case ADD_SELECTED_TASK:
+        return {
+          ...view, selectedTasks: [...view.selectedTasks.filter(function (item, pos) {
+            return view.selectedTasks.indexOf(item) === pos;
+          }), payload] };
+      
+      case DELETE_SELECTED_TASK:
+        return { ...view, selectedTasks: [...view.selectedTasks.filter(task => task.id_task !== payload)]};
+      
+      case CLEAR_TASK_SELECTION:
+        return { ...view, selectedTasks: [] };
+        
       default:
         return view;
     }

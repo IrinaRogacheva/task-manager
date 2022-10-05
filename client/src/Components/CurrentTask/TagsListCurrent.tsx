@@ -4,8 +4,6 @@ import { updateCurrentTask } from '../../Actions/current-task';
 import { addTagInTask } from '../../Actions/tasks';
 import { Tag } from '../../entries';
 import { RootState } from '../../store';
-import './../Main/Main.css'
-import './../Sidebar/Sidebar.css'
 
 export function TagsListCurrent(props: any) {
   const dispatch = useDispatch()

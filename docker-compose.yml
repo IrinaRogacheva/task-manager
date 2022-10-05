@@ -1,0 +1,48 @@
+version: "3.9"
+
+x-common-variables: &common-variables
+  MYSQL_DATABASE: task_manager
+  MYSQL_USER: user
+  MYSQL_PASSWORD: Qwerty
+
+services:
+  mysql_db:
+    image: mysql
+    restart: always
+    ports:
+      - "9906:3306"
+    volumes:
+      - "./setup.sql:/docker-entrypoint-initdb.d/setup.sql"
+    environment:
+      <<: *common-variables
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: Password
+      MYSQL_HOST: localhost
+
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: "./server"
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mysql_db
+    volumes:
+      - /app/server/node_modules
+      - ./server:/app/server
+    environment:
+      <<: *common-variables
+      MYSQL_HOST_IP: mysql_db
+
+  client:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile
+      context: ./client
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/client/node_modules
+      - ./client:/app/client

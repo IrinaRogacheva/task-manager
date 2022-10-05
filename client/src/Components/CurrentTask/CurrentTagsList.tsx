@@ -13,7 +13,6 @@ export function CurrentTagsList(props: any) {
     const [projectsWindow, setProjectsWindow] = useState(false)
     const dispatch = useDispatch()
     const tags = useSelector((state: RootState) => state.tags)
-    console.log("props.tags ", props.tags)
     let resTags: Array<Tag> = []
     for (const t of tags) {
         if (props.tags && !props.tags.find((tag: Tag) => t.id_tag === tag.id_tag)) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { RootState } from '../../store';
@@ -8,9 +8,15 @@ type Props = {
   };
 
 export default function RequireAuth({children}: Props)  {
-    const loggedIn = useSelector((state: RootState) => state.user.loggedIn)
+  const loggedIn = useSelector((state: RootState) => state.user.loggedIn);
+  const firstUpdate = useRef(true);
 
-    return loggedIn === true
+  if (firstUpdate.current) {
+    firstUpdate.current = false;
+    return <></>;
+  }
+
+  return loggedIn
       ? children
       : <Navigate to="/login" replace />;
   }

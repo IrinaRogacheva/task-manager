@@ -6,11 +6,11 @@ class UsersDataService {
   }
 
   registerUser(email: string, password: string) {
-    return http.post("/register", {email, password});
+    return http.post("/register", { email, password }, { withCredentials: true });
   }
 
   checkPassword(idUser: number, password: string) {
-    return http.post(`/check_password/${idUser}`, {password});
+    return http.post(`/check_password/${idUser}`, { password });
   }
 
   loginUser(email: string, password: string) {

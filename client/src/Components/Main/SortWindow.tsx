@@ -10,7 +10,10 @@ export function SortWindow(props: any) {
 
     return (
       <>
-        <div className="sort-menu context-menu" style={{display: (props.sortWindow?'block':'none')}}>
+        <div className="sort-menu context-menu" style={{ display: (props.sortWindow ? 'block' : 'none') }}>
+          <button className='task-context-menu__button' onClick={() => { dispatch(sortByDate(tasks)); props.setSortWindow(false) }}>
+            <p className="sidebar__text task-context-menu__text">Произвольно</p>
+          </button>
           <button className='task-context-menu__button' onClick={()=>{dispatch(sortByDate(tasks));props.setSortWindow(false)}}>
             <p className="sidebar__text task-context-menu__text">По времени</p>
           </button>

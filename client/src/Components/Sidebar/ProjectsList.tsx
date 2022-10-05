@@ -5,7 +5,6 @@ import { setCreateProject } from '../../Actions/view'
 import { RootState } from '../../store'
 import { Arrow, Plus } from '../Icons'
 import { ProjectsListItem } from './ProjectsListItem'
-import './Sidebar.css'
 
 export function ProjectsList(props: any) {
     const [isOpen, setIsOpen] = useState(false)

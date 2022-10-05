@@ -1,5 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { ADD_TASK, CLEAR_TRASH, GET_TASKS, UPDATE_TASK } from "../Actions/types";
+import { ifError } from "assert";
+import { ADD_TASK, CLEAR_TRASH, GET_TASKS, TAKE_BACK_TASK, UPDATE_TASK } from "../Actions/types";
 import { Task } from '../entries';
 
 const initialState: Array<Task> = [];
@@ -31,6 +32,16 @@ const initialState: Array<Task> = [];
           }
         });
 
+      case TAKE_BACK_TASK:
+        console.log("take_back_task")
+        if (tasks.length > 0) {
+          let newTasksArray: Array<Task> = tasks.slice();
+          newTasksArray.splice(payload.index, 0, payload.task);
+          return newTasksArray
+        } else {
+          return [{ ...payload.task }];
+        }
+        
       case CLEAR_TRASH:
         return [];
   

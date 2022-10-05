@@ -14,10 +14,16 @@ export function Header(props: any) {
   
   return (
     <div className="header">
-      <div style={{display: 'flex'}}>
+      <div style={{ display: 'flex' }}>
+        <button onClick={() => dispatch(toggleSidebarVisibility(!view.sidebarVisibility))} className="profile-icon" style={{ marginLeft: '10px' }}>
+          <BurgerIcon />
+        </button>
         <SearchField/>
       </div>
-      <div style={{display: 'flex'}}>
+      <div style={{ display: 'flex' }}>
+        <button onClick={() => {}} className="profile-icon">
+          <BellIcon />
+        </button>
         <button onClick={()=>setSortWindow(!sortWindow)} className="profile-icon" style={{marginLeft: '10px'}}>
           <ProfileIcon/>
         </button>

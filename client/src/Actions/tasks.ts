@@ -1,7 +1,8 @@
 import { ADD_TASK, CLEAR_TRASH, GET_TASKS, TAKE_BACK_TASK, UPDATE_TASK } from "./types";
 import TasksDataService from "../Services/tasks.service";
 import { AppDispatch } from "../store";
-import { Tag, Task } from "../entries";
+import { Tag, Task, TaskToDB } from "../entries";
+import moment from "moment";
 
 export const sortByDate = (tasks: Array<Task>) => async (dispatch: AppDispatch) => {
   tasks.sort((a, b) => (a.id_task > b.id_task) ? -1:1)
@@ -228,9 +229,25 @@ export const getTasksOfTag = (tagId: number, idAuthor: number) => async (dispatc
     }
 };
 
-export const addTask = (task: Task, idAuthor: number) => async (dispatch: AppDispatch) => {
+export const addTask = (taskArg: Task, idAuthor: number) => async (dispatch: AppDispatch) => {
   try {
-      const res = await TasksDataService.addTask(task);
+    const date = taskArg.date ? moment(taskArg.date).format('YYYY-MM-DD') : null
+    let task: TaskToDB = {
+      id_task: taskArg.id_task,
+      name: taskArg.name,
+      description: taskArg.description,
+      date: date,
+      time: taskArg.time,
+      priority: taskArg.priority,
+      id_parent_task: taskArg.id_parent_task,
+      id_project: taskArg.id_project,
+      id_tags: taskArg.id_tags,
+      id_author: taskArg.id_author,
+      status: taskArg.status
+    }
+    
+    const res = await TasksDataService.addTask(task);
+    console.log("insertId ", res.data.insertId)
       const insertedTask = await TasksDataService.getById(res.data.insertId);
       if (task.id_tags.length)
       {

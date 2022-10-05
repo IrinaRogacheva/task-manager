@@ -51,7 +51,7 @@ export const clearTagsList = () => (dispatch: AppDispatch) => {
     });
 };
 
-export const setTaskDate = (date: string|null) => (dispatch: AppDispatch) => {
+export const setTaskDate = (date: Date|null) => (dispatch: AppDispatch) => {
     dispatch({
         type: SET_TASK_DATE,
         payload: date,

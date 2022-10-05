@@ -1,14 +1,28 @@
-export type { Task, Project, Tag, View, App, User }
+export type { Task, TaskToDB, Project, Tag, View, App, User }
 
 type Task = {
     id_task: number,
     name: string,
     description: string|null,
-    date: string|null,
+    date: Date|null,
     time: string|null,
     priority: number|null,
     id_parent_task: number|null,
     id_project: number|null,
+    id_tags: Array<Tag>,
+    id_author: number,
+    status: number,
+}
+
+type TaskToDB = {
+    id_task: number,
+    name: string,
+    description: string | null,
+    date: string | null,
+    time: string | null,
+    priority: number | null,
+    id_parent_task: number | null,
+    id_project: number | null,
     id_tags: Array<Tag>,
     id_author: number,
     status: number,
@@ -34,6 +48,8 @@ type View = {
     idTaskDeleted: number,
     doneTaskIndex: number,
     deletedTaskIndex: number,
+    doneTaskTags: Array<Tag>,
+    deletedTaskTags: Array<Tag>,
     currentTab: string,
     currentTabProjectId: number,
     currentTabTagId: number,
@@ -45,6 +61,8 @@ type View = {
     isUpdateProject: boolean,
     isUpdateTag: boolean,
     updatingId: number,
+    isMultipleTaskSelection: boolean,
+    selectedTasks: Array<Task>
 }
 
 type App = {

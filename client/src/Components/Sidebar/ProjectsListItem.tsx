@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import ProjectsDataService from "../../Services/projects.service";
-import './Sidebar.css'
 import { setCurrentTab, setCurrentTabProjectId } from '../../Actions/view';
 import { setTaskProject } from '../../Actions/new-task';
 import { ProjectContextMenu } from './ProjectContextMenu';

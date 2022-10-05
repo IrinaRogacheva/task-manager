@@ -11,7 +11,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 
 app.use(cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "http://localhost:3000/login", "http://localhost:3000/register"],
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
 }))
@@ -25,14 +25,14 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        expires: 60 * 60 * 24,
+        expires: 1000 * 60 * 60 * 24,
     }
 }))
 
 const db = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: 'Qwerty123',
+    host: 'mysql_db',
+    user: 'user',
+    password: 'Qwerty',
     database: 'task_manager',
 })
 
@@ -384,8 +384,8 @@ app.post('/api/register', (req, res) => {
 })
 
 app.get('/api/login', (req, res) => {
-    if (req.session.user) {
-        res.send({loggedIn: true, user: req.session.user})
+    if (req.session.userId) {
+        res.send({ loggedIn: true, user: req.session.userId })
     } else {
         res.send({loggedIn: false})
     }
@@ -399,8 +399,8 @@ app.post('/api/login', (req, res) => {
         if (result.length > 0) {
             bcrypt.compare(password, Buffer.from(result[0].password,'binary').toString(), (error, response) => {
                 if (response) {
-                    req.session.user = result
-                    console.log("session: ", req.session.user)
+                    req.session.userId = result
+                    console.log("session: ", req.session.userId)
                     res.send(result)
                 } else {
                     res.send({message: "Wrong email/password combination"})

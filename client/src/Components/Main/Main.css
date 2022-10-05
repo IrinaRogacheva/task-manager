@@ -1,7 +1,6 @@
 .main
 {
     background-color: #f8f9ff;
-    width: 45%;
     padding: 20px 30px;
 }
 
@@ -153,7 +152,7 @@
 
 .calendar
 {
-    width: 260px;
+    width: 220px;
     height: 300px;   
     top: 30px;
     left: 5px;
@@ -214,6 +213,7 @@
 .main_task-wrapper
 {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     position: relative;
     border-bottom: 1px solid #e7e9f1;
@@ -273,7 +273,6 @@
     font-size: 14px;
     color: #444;
     outline: none;
-    width: 96%;
     border: none;
     background: transparent;
     box-sizing: border-box;
@@ -320,21 +319,33 @@
 
 .task_tag__name
 {
+    font-family: Rubik, sans-serif;
     font-size: 12px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    width: 50px;
+    max-width: 100px;
     text-align: center;
-    padding: 2px 3px;
+    padding: 2px 10px;
     color: #1e1313;
     user-select: none;
     cursor: pointer;
 }
 
+.task_date {
+    font-family: 'Rubik', sans-serif;
+    font-size: 12px;
+    color: rgb(71, 114, 250);
+    margin-right: 4px;
+}
+
+.task_date__past {
+    color: rgb(255, 30, 30);
+}
+
 .task-context-menu
 {
-    width: 210px;  
+    width: 190px;  
     top: 35px;
     right: -5px;
     padding: 7px 0 0;
@@ -358,11 +369,18 @@
 
 .task-context-menu__text
 {
-    font-size: 13px;
+    font-family: Rubik, sans-serif;
 }
 
 .message_about_done_task
 {
+    position: absolute;
+    box-shadow: 0px 5px 18px 0px rgb(0 0 0 / 20%);
+    border-radius: 6px;
+    background: #fff;
+    z-index: 1;
+    cursor: default;
+
     background: #2A2D33;
     border-radius: 3px;
     padding: 10px 13px 10px 5px;
@@ -377,6 +395,9 @@
 
 .cancel_button
 {
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    padding-left: 10px;
     border: none;
     cursor: pointer;
     background: transparent;
@@ -388,6 +409,9 @@
 
 .message_text
 {
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    padding-left: 10px;
     color: #fff;
 }
 

@@ -34,7 +34,7 @@ export function Main(props: any) {
   const [sortWindow, setSortWindow] = useState(false)
   const dispatch = useDispatch()
     return (
-        <div className="main">
+      <div className="main" style={{ width: (view.sidebarVisibility ? '45%' : '65%'), padding: (view.sidebarVisibility ? '20px 30px' : '20px 50px') }}>
           <div className='main_title_wrapper'>
             <p className='main__title'>{(view.currentTab==="incoming")?"Входящие":(view.currentTab==="today"?"Сегодня":(view.currentTab==="next_week"?"Следующие 7 дней":(view.currentTab==="done"?"Выполнено":(view.currentTab==="deleted"?"Корзина":(view.currentTab==="project"?getNameOfCurrentProject(view.currentTabProjectId):(view.currentTab==="tag"?getNameOfCurrentTag(view.currentTabTagId):""))))))}</p>
             <div style={{position: 'relative'}}>

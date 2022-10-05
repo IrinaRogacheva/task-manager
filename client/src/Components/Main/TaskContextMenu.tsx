@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { updateTaskStatus } from '../../Actions/tasks';
-import { setDeletedIdTask, setDeletedMesageVisibility, setDeletedTaskIndex } from '../../Actions/view';
+import { setDeletedIdTask, setDeletedMesageVisibility, setDeletedTaskIndex, setDeletedTaskTags } from '../../Actions/view';
 import { ContextMenuIcon, TrashCan } from '../Icons';
 import './Main.css'
 import { PrioritiesToUpdate } from './PrioritiesToUpdate';
@@ -9,10 +9,12 @@ import { PrioritiesToUpdate } from './PrioritiesToUpdate';
 export function TaskContextMenu(props: any) {
   const dispatch = useDispatch()
   const setTaskDeleted = () => {
-    dispatch(updateTaskStatus(props.id_task, props.tags, {status: 2}))
-    dispatch(setDeletedIdTask(props.id_task))
-    dispatch(setDeletedMesageVisibility(true))
-    setTimeout(()=>dispatch(setDeletedMesageVisibility(false)), 4000)
+    dispatch(updateTaskStatus(props.id_task, props.tags, { status: 2 }));
+    dispatch(setDeletedIdTask(props.id_task));
+    dispatch(setDeletedTaskIndex(props.task_index));
+    dispatch(setDeletedTaskTags(props.id_tags));
+    dispatch(setDeletedMesageVisibility(true));
+    setTimeout(() => dispatch(setDeletedMesageVisibility(false)), 4000);
   }
 
   const [isTaskHover, setIsTaskHover] = useState(false)
@@ -43,7 +45,7 @@ export function TaskContextMenu(props: any) {
         </div>
         <div data-name={`task_context_menu_${props.id_task}`} className="task-context-menu context-menu" style={{display: 'none'}} tabIndex={0}>
           <PrioritiesToUpdate {...{priority: props.priority, id_task: props.id_task, tags: props.tags}}/>
-          <button className='task-context-menu__button' onClick={()=>{setTaskDeleted();setDeletedTaskIndex(props.task_index)}}>
+          <button className='task-context-menu__button' onClick={() => { setTaskDeleted()}}>
             <TrashCan {...{fill: "#a3a3a3", width: "17px", height: "15px"}}/>
             <p className="sidebar__text task-context-menu__text">Удалить</p>
           </button>

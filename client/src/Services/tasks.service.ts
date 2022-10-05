@@ -1,5 +1,5 @@
 import moment from "moment";
-import { Task } from "../entries";
+import { Task, TaskToDB } from "../entries";
 import http from "../http-common";
 
 class TasksDataService {
@@ -41,7 +41,7 @@ class TasksDataService {
     return http.get(`/get_task_by_id/${id}`);
   }
 
-  addTask(task: Task) {
+  addTask(task: TaskToDB) {
     return http.post("/add_task", task);
   }
 

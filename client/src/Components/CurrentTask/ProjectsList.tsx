@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateCurrentTask } from '../../Actions/current-task';
 import { updateTaskProject } from '../../Actions/tasks';
 import { RootState } from '../../store';
-import './../Main/Main.css'
-import './../Sidebar/Sidebar.css'
 
 export function ProjectsList(props: any) {
   const dispatch = useDispatch()

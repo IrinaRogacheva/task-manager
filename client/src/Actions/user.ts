@@ -21,13 +21,12 @@ export const loginUserByPassword = (struct: {email: string, password: string}) =
     }
   };
 
-  export const loginUserByCoolie = () => async (dispatch: AppDispatch) => {
+export const loginUserByCookie = () => async (dispatch: AppDispatch) => {
     const res = await UsersDataService.checkIsLoggedIn()
-    console.log(res)
     if (res.data.loggedIn === true) {
       dispatch({
         type: LOGIN,
-        payload: res.data.user[0],
+        payload: { id_user: res.data.user[0].id_user, email: res.data.user[0].email },
     });
     }
   };

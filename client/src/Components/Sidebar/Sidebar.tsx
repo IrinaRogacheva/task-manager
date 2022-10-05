@@ -5,7 +5,6 @@ import { setCurrentTab } from '../../Actions/view';
 import { RootState } from '../../store';
 import { CalendarIcon, DayOfCalendarIcon, DrawerIcon, Tick, TrashCan } from '../Icons';
 import { ProjectsList } from './ProjectsList';
-import './Sidebar.css'
 import { TagsList } from './TagsList';
 
 export function Sidebar(props: any) {
@@ -41,6 +40,11 @@ export function Sidebar(props: any) {
                 <p className="sidebar__text">Сегодня</p>
                 <p className="sidebar__number-of-tasks">{countOfToday}</p>
             </button>
+            <button onClick={() => { dispatch(setCurrentTab("next_week")) }} className={`sidebar__button ${(view.currentTab === "next_week") ? "sidebar__button_current" : ""}`}>
+                <CalendarIcon />
+                <p className="sidebar__text">Следующие 7 дней</p>
+                <p className="sidebar__number-of-tasks">0</p>
+            </button>
             <div className="dropdown-lists">
                 <ProjectsList {...{isChangingModeOn: true}}/>
                 <TagsList {...{isChangingModeOn: true}}/>
@@ -49,7 +53,7 @@ export function Sidebar(props: any) {
                 <Tick/>
                 <p className="sidebar__text">Выполнено</p>
             </button>
-            <button onClick={()=>{dispatch(setCurrentTab("deleted"))}} className={`sidebar__button ${(view.currentTab === "deleted")?"sidebar__button_current":""}`}>
+            <button style={{ marginBottom: "30px" }} onClick={() => { dispatch(setCurrentTab("deleted")) }} className={`sidebar__button ${(view.currentTab === "deleted") ? "sidebar__button_current" : ""}`}>
                 <TrashCan {...{fill: "#f58c74", width: "25px", height: "25px"}}/>
                 <p className="sidebar__text">Корзина</p>
             </button>

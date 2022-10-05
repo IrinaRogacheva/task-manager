@@ -6,7 +6,7 @@ import { addTask } from '../../Actions/tasks';
 import { Tag } from '../../entries';
 import { RootState } from '../../store';
 import { AddDate, Arrow, Plus } from '../Icons';
-import { Calendar } from './Calendar';
+import { CalendarContext } from './CalendarContext';
 import './Main.css'
 import { TaskCondiments } from './TaskCondiments';
 
@@ -83,7 +83,7 @@ export default function NewTaskInput(props: any) {
   const tags = useSelector((state: RootState) => state.tags)
   useEffect(() => {
     if (view.currentTab === "today" || view.currentTab === "next_week") {
-      dispatch(setTaskDate(moment().format('YYYY-MM-DD')))
+      dispatch(setTaskDate(new Date(moment().format('YYYY-MM-DD'))))
     } else
     {
       dispatch(setTaskDate(null))
@@ -110,7 +110,7 @@ export default function NewTaskInput(props: any) {
       dispatch(setTaskProject(null))
       dispatch(clearTagsList())
       if (view.currentTab === "today" || view.currentTab === "next_week") {
-        dispatch(setTaskDate(moment().format('YYYY-MM-DD')))
+        dispatch(setTaskDate(new Date(moment().format('YYYY-MM-DD'))))
       } else
       {
         dispatch(setTaskDate(null))
@@ -130,7 +130,13 @@ export default function NewTaskInput(props: any) {
           <div className='main__placeholder'>Добавить задачу</div>
         </div>
         <input ref={inputRef} onKeyDown={(e)=>{if (e.key === 'Enter') {submitReview()}}} className='main__input' autoComplete="off" type='text' onFocus={()=>{setIsPlaceholderVisible(true);setIsAddingTaskModeOn(true)}} onBlur={(e)=>{checkIsAddingTaskModeOn(e as FocusEvent); checkIsPlaceholderVisible((e as FocusEvent))}}/>
-        <div className='main_input-condiments' style={{display: (isAddingTaskModeOn?'flex':'none')}}>
+        <div className='main_input-condiments' style={{/* display: (isAddingTaskModeOn ? 'flex' : 'none') */ }}>
+          <div ref={calendarButtonRef} tabIndex={0} onClick={() => { setIsCalendarVisible(!isCalendarVisible); setIsCondimentsVisible(false) }} className='input-icon main__input-icon_right-border'>
+            <AddDate />
+          </div>
+          <div ref={calendarRef}>
+            <CalendarContext {...{ style: { display: (isCalendarVisible ? 'block' : 'none') }, attr: { tabIndex: 0 }, isCalendarVisible: isCalendarVisible, setIsCalendarVisible: setIsCalendarVisible }} />
+          </div>
           <div ref={condimentsButtonRef} tabIndex={0} onClick={()=>{setIsCondimentsVisible(!isCondimentsVisible);setIsCalendarVisible(false)}} className='input-icon input-icon__arrow'>
             <Arrow {...{fill: "#f58c74", width: "13px", height: "13px"}}/>
           </div>

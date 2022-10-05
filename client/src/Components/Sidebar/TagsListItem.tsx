@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import TagsDataService from "../../Services/tags.service";
-import './Sidebar.css'
 import { setCurrentTab, setCurrentTabTagId } from '../../Actions/view';
 import { addTagToNewTask, deleteTagToNewTask } from '../../Actions/new-task';
 import { TagContextMenu } from './TagContextMenu';

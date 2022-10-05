@@ -4,7 +4,6 @@ import { getTags } from '../../Actions/tags'
 import { RootState } from '../../store'
 import { Arrow, Plus } from '../Icons'
 import { TagsListItem } from './TagsListItem'
-import './Sidebar.css'
 import { setCreateTag } from '../../Actions/view'
 
 export function TagsList(props: any) {
