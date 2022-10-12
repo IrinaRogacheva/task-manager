@@ -7,6 +7,7 @@ x-common-variables: &common-variables
 
 services:
   mysql_db:
+    hostname: mysql_db
     image: mysql
     restart: always
     ports:
@@ -17,7 +18,7 @@ services:
       <<: *common-variables
       MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: Password
-      MYSQL_HOST: localhost
+      MYSQL_HOST: mysql_db
 
   api:
     build:
@@ -46,3 +47,13 @@ services:
     volumes:
       - /app/client/node_modules
       - ./client:/app/client
+  
+  adminer:
+    image: adminer:latest
+    restart: unless-stopped
+    ports:
+      - 8000:8080
+    depends_on:
+      - mysql_db
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql_db

@@ -4,7 +4,7 @@ const mysql = require('mysql')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const saltRounds = 10
 
 const cookieParser = require('cookie-parser')
@@ -30,9 +30,10 @@ app.use(session({
 }))
 
 const db = mysql.createPool({
-    host: 'mysql_db',
-    user: 'user',
-    password: 'Qwerty',
+    host: 'my_sql',//'my_sql',
+    port: 3306,
+    user: 'root',
+    password: 'Password',//'Password',
     database: 'task_manager',
 })
 
@@ -50,7 +51,8 @@ app.get('/api/get_tasks/:id_author', (req, res) => {
     const idAuthor = req.params.id_author
     const selectTasks = "SELECT * FROM `task` WHERE `status` = 0 AND `id_author` = ? ORDER BY `id_task` DESC"
     db.query(selectTasks,[idAuthor],(err, result) => {
-        res.send(result)
+        //res.send(result)
+        res.send(err)
     })
 })
 
@@ -396,6 +398,8 @@ app.post('/api/login', (req, res) => {
     const password = req.body.password
     const selectProject = "SELECT * FROM `user` WHERE `email` = ?"
     db.query(selectProject, [email],(err, result) => {
+        console.log("error: ", err)
+        console.log("result from login: ", result)
         if (result.length > 0) {
             bcrypt.compare(password, Buffer.from(result[0].password,'binary').toString(), (error, response) => {
                 if (response) {
